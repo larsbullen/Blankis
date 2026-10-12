@@ -8,25 +8,133 @@
       "status": "skated",
       "yours": "You skated this on 3 Dec 2022: 50.9 km, 6 h 36 min moving. Clear ice with some snow on top, no open water.",
       "strava": "8203086392",
-      "chain": ["Enan", "Ånnsjön", "Kärrån", "Kösjön", "Rängen", "Moen", "Greningen"],
+      "chain": [
+        "Enan",
+        "Ånnsjön",
+        "Kärrån",
+        "Kösjön",
+        "Rängen",
+        "Moen",
+        "Greningen"
+      ],
       "station": "storlien",
       "out": [
-        {"mode": "train", "text": "Norrtåg westbound to <b>Enafors</b>. Only 2 trains a day stop there, so take the morning one."},
-        {"mode": "bus", "text": "Weekdays: bus <b>571</b> leaves Duved at 06:00 and 13:50 towards Enafors. The 06:00 works for a pre-dawn start in November."}
+        {
+          "mode": "train",
+          "text": "Norrtåg westbound to <b>Enafors</b>. Only 2 trains a day stop there, so take the morning one."
+        },
+        {
+          "mode": "bus",
+          "text": "Weekdays: bus <b>571</b> leaves Duved at 06:00 and 13:50 towards Enafors. The 06:00 works for a pre-dawn start in November."
+        }
       ],
       "back": [
-        {"mode": "walk", "text": "Leave the ice where Greningen ends and walk about 1.5 km down into <b>Duved</b>."},
-        {"mode": "train", "text": "From Duved: Norrtåg about 4 a day, or bus <b>157</b> to Åre/Undersåker/Järpen roughly every hour, every day."}
+        {
+          "mode": "walk",
+          "text": "Leave the ice where Greningen ends and walk about 3 km down into <b>Duved</b>, past Forsaforsen."
+        },
+        {
+          "mode": "train",
+          "text": "From Duved: Norrtåg about 4 a day, or bus <b>157</b> to Åre/Undersåker/Järpen roughly every hour, every day."
+        }
       ],
       "access": [
-        {"name": "Enafors station", "ll": [63.2898, 12.3375], "type": "train"},
-        {"name": "Duved station", "ll": [63.3900, 12.9176], "type": "train"}
+        {
+          "name": "Enafors station",
+          "ll": [
+            63.2898,
+            12.3375
+          ],
+          "type": "train"
+        },
+        {
+          "name": "Duved station",
+          "ll": [
+            63.39,
+            12.9176
+          ],
+          "type": "train"
+        }
       ],
       "hazards": [
         "Enanfors waterfall is right next to Enafors station. Get on the ice below it.",
         "The Enan is river ice: thinner over the current and on the outside of bends. Its mouth into Ånnsjön is shallow and sandy.",
         "Kärrån is a stream. Watch for springs and soft spots. Your track avoided Ånnsjön's outlet at Ånn, which is often open.",
         "Greningen is a regulated reservoir. The water level moves, so expect cracks and slush along the shore."
+      ],
+      "spots": [
+        {
+          "type": "open",
+          "name": "Enanfors waterfall",
+          "at": [
+            63.2878,
+            12.3271
+          ],
+          "r": 150,
+          "text": "Open water at the falls next to Enafors station. Get on the Enan below them."
+        },
+        {
+          "type": "slow",
+          "name": "Kärrån",
+          "from": [
+            63.29,
+            12.6507
+          ],
+          "to": [
+            63.2994,
+            12.7263
+          ],
+          "text": "km 21–28 on your 2022 trip: 2–4 km/h, with a 49 min stop. Walking pace on stream ice."
+        },
+        {
+          "type": "slow",
+          "name": "Kösjön → Rängen → Moen",
+          "from": [
+            63.3061,
+            12.7702
+          ],
+          "to": [
+            63.3266,
+            12.8295
+          ],
+          "text": "km 34–40: 3–5 km/h. Walking pace through the small tarns and the gaps between them."
+        },
+        {
+          "type": "slow",
+          "name": "Moen → Greningen",
+          "from": [
+            63.3364,
+            12.8165
+          ],
+          "to": [
+            63.3667,
+            12.8783
+          ],
+          "text": "km 41–48: 2–5 km/h, Greningen included. Walking pace or poor ice."
+        },
+        {
+          "type": "walk",
+          "name": "Down to Duved",
+          "from": [
+            63.3667,
+            12.8783
+          ],
+          "to": [
+            63.3888,
+            12.901
+          ],
+          "text": "km 48–51: a steady 5 km/h. You walked home from here, past Forsaforsen."
+        },
+        {
+          "type": "open",
+          "name": "Ånnsjön outlet at Ånn",
+          "at": [
+            63.3138,
+            12.6051
+          ],
+          "r": 500,
+          "text": "Often open water with swans where Ånnsjön drains east. Keep well clear."
+        }
       ]
     },
     {
@@ -35,25 +143,73 @@
       "sub": "Down the Enan and across Ånnsjön",
       "kind": "train",
       "status": "proposed",
-      "chain": ["Enan", "Ånnsjön"],
+      "chain": [
+        "Enan",
+        "Ånnsjön"
+      ],
       "station": "storlien",
       "out": [
-        {"mode": "train", "text": "Norrtåg westbound to <b>Enafors</b> in the morning."}
+        {
+          "mode": "train",
+          "text": "Norrtåg westbound to <b>Enafors</b> in the morning."
+        }
       ],
       "back": [
-        {"mode": "train", "text": "Norrtåg eastbound from <b>Ånn</b>, which also has 2 trains a day. With the autumn timetable that meant an evening train."},
-        {"mode": "bus", "text": "Weekdays: bus <b>571</b> eastbound from Storlien at 14:55 and 17:10 passes Ånn (exact time at Ånn unverified)."}
+        {
+          "mode": "train",
+          "text": "Norrtåg eastbound from <b>Ånn</b>, which also has 2 trains a day. With the autumn timetable that meant an evening train."
+        },
+        {
+          "mode": "bus",
+          "text": "Weekdays: bus <b>571</b> eastbound from Storlien at 14:55 and 17:10 passes Ånn (exact time at Ånn unverified)."
+        }
       ],
       "access": [
-        {"name": "Enafors station", "ll": [63.2898, 12.3375], "type": "train"},
-        {"name": "Ånn station", "ll": [63.3213, 12.5391], "type": "train"}
+        {
+          "name": "Enafors station",
+          "ll": [
+            63.2898,
+            12.3375
+          ],
+          "type": "train"
+        },
+        {
+          "name": "Ånn station",
+          "ll": [
+            63.3213,
+            12.5391
+          ],
+          "type": "train"
+        }
       ],
       "hazards": [
         "Enanfors waterfall is next to the station, so start below it.",
         "River ice on the Enan, and a shallow, sandy mouth.",
         "Ånnsjön's outlet east of Ånn (around 63.314, 12.605) is often open water with swans. Leave the ice at the station shore, not at the outlet."
       ],
-      "note": "Enaforsholm sells a guided 9 km Enan–Ånnsjön tour, so the Enan section is known skating."
+      "note": "Enaforsholm sells a guided 9 km Enan–Ånnsjön tour, so the Enan section is known skating.",
+      "spots": [
+        {
+          "type": "open",
+          "name": "Enanfors waterfall",
+          "at": [
+            63.2878,
+            12.3271
+          ],
+          "r": 150,
+          "text": "Open water at the falls next to Enafors station. Get on the Enan below them."
+        },
+        {
+          "type": "open",
+          "name": "Ånnsjön outlet at Ånn",
+          "at": [
+            63.3138,
+            12.6051
+          ],
+          "r": 500,
+          "text": "Often open water with swans where Ånnsjön drains east. Keep well clear."
+        }
+      ]
     },
     {
       "id": "ann-ottsjo",
@@ -61,17 +217,48 @@
       "sub": "Kärrån, Kösjön, the Gräpplingen tarns and Ottsjön",
       "kind": "train-bus",
       "status": "proposed",
-      "chain": ["Ånnsjön", "Kärrån", "Kösjön", "walk ~3 km", "Stentjärnen", "Tarmen", "Lill-Gräpplingen", "Stor-Gräpplingen", "Skårrån", "Ottsjön"],
+      "chain": [
+        "Ånnsjön",
+        "Kärrån",
+        "Kösjön",
+        "walk ~3 km",
+        "Stentjärnen",
+        "Tarmen",
+        "Lill-Gräpplingen",
+        "Stor-Gräpplingen",
+        "Skårrån",
+        "Ottsjön"
+      ],
       "station": "storlien",
       "out": [
-        {"mode": "train", "text": "Norrtåg westbound to <b>Ånn</b> in the morning."}
+        {
+          "mode": "train",
+          "text": "Norrtåg westbound to <b>Ånn</b> in the morning."
+        }
       ],
       "back": [
-        {"mode": "bus", "text": "Bus <b>562</b> from <b>Ottsjö</b> to Undersåker, then train or bus 157. Weekdays it leaves Vålådalen at 06:50, 10:00 and 14:20 (the 15:10 and 17:10 skip Ottsjö village). Weekends 10:00, 15:00 and 18:35. It reaches Ottsjö about 15 min later (unverified)."}
+        {
+          "mode": "bus",
+          "text": "Bus <b>562</b> from <b>Ottsjö</b> to Undersåker, then train or bus 157. Weekdays it leaves Vålådalen at 06:50, 10:00 and 14:20 (the 15:10 and 17:10 skip Ottsjö village). Weekends 10:00, 15:00 and 18:35. It reaches Ottsjö about 15 min later (unverified)."
+        }
       ],
       "access": [
-        {"name": "Ånn station", "ll": [63.3213, 12.5391], "type": "train"},
-        {"name": "Ottsjö bus stop (562)", "ll": [63.2170, 13.0450], "type": "bus"}
+        {
+          "name": "Ånn station",
+          "ll": [
+            63.3213,
+            12.5391
+          ],
+          "type": "train"
+        },
+        {
+          "name": "Ottsjö bus stop (562)",
+          "ll": [
+            63.217,
+            13.045
+          ],
+          "type": "bus"
+        }
       ],
       "hazards": [
         "Kärrån is stream ice. You skated it in 2022, but its condition varies from year to year.",
@@ -79,7 +266,55 @@
         "Skårrån falls about 6 km down to Ottsjön. Whether it can be skated is unknown, so be ready to walk it.",
         "Ridvadet is a shallow ford across Ottsjön at Ottsjö village and may have weak ice (unverified)."
       ],
-      "note": "This is the second half of your Vålådalen idea, and it works on its own as a train-out, bus-home day."
+      "note": "This is the second half of your Vålådalen idea, and it works on its own as a train-out, bus-home day.",
+      "spots": [
+        {
+          "type": "open",
+          "name": "Ånnsjön outlet at Ånn",
+          "at": [
+            63.3138,
+            12.6051
+          ],
+          "r": 500,
+          "text": "Often open water with swans where Ånnsjön drains east. Keep well clear."
+        },
+        {
+          "type": "maybe",
+          "name": "Kärrån",
+          "from": [
+            63.29,
+            12.6507
+          ],
+          "to": [
+            63.2994,
+            12.7263
+          ],
+          "text": "Stream ice. On your 2022 trip this stretch went at walking pace, 2–4 km/h."
+        },
+        {
+          "type": "maybe",
+          "name": "Skårrån",
+          "from": [
+            63.274,
+            12.9104
+          ],
+          "to": [
+            63.2311,
+            12.9261
+          ],
+          "text": "A stream falling about 6 km to Ottsjön. It is unknown whether it can be skated, so be ready to walk all of it."
+        },
+        {
+          "type": "maybe",
+          "name": "Ridvadet ford, Ottsjön",
+          "at": [
+            63.2125,
+            13.045
+          ],
+          "r": 450,
+          "text": "A shallow ford (under 40 cm deep) across the lake from Ottsjö village. Ice may be weak here. Position approximate, unverified."
+        }
+      ]
     },
     {
       "id": "vala-ottsjo",
@@ -87,18 +322,56 @@
       "sub": "Your idea: Nulltjärnarna, down Rekån, back along the tarn chain",
       "kind": "bus",
       "status": "expedition",
-      "chain": ["Nulltjärnarna", "walk 3.4 km", "Rekån (27 km stream)", "Ånnsjön", "Kärrån", "Kösjön", "walk ~3 km", "Gräpplingen tarns", "Skårrån", "Ottsjön"],
+      "chain": [
+        "Nulltjärnarna",
+        "walk 3.4 km",
+        "Rekån (27 km stream)",
+        "Ånnsjön",
+        "Kärrån",
+        "Kösjön",
+        "walk ~3 km",
+        "Gräpplingen tarns",
+        "Skårrån",
+        "Ottsjön"
+      ],
       "station": "storlien",
       "out": [
-        {"mode": "bus", "text": "Bus <b>562</b> from Undersåker to <b>Vålådalen</b>: weekdays 08:00, Sat 08:00, Sun 08:45. Then about 3.5 km on foot to Nulltjärnarna."}
+        {
+          "mode": "bus",
+          "text": "Bus <b>562</b> from Undersåker to <b>Vålådalen</b>: weekdays 08:00, Sat 08:00, Sun 08:45. Then about 3.5 km on foot to Nulltjärnarna."
+        }
       ],
       "back": [
-        {"mode": "bus", "text": "Bus <b>562</b> from Ottsjö back to Undersåker (see the Ånn → Ottsjö route), or leave a car at Sjöändan."}
+        {
+          "mode": "bus",
+          "text": "Bus <b>562</b> from Ottsjö back to Undersåker (see the Ånn → Ottsjö route), or leave a car at Sjöändan."
+        }
       ],
       "access": [
-        {"name": "Vålådalen västra (562)", "ll": [63.1487, 12.9653], "type": "bus"},
-        {"name": "Nulltjärnarna", "ll": [63.1572, 12.8992], "type": "ice"},
-        {"name": "Ottsjö bus stop (562)", "ll": [63.2170, 13.0450], "type": "bus"}
+        {
+          "name": "Vålådalen västra (562)",
+          "ll": [
+            63.1487,
+            12.9653
+          ],
+          "type": "bus"
+        },
+        {
+          "name": "Nulltjärnarna",
+          "ll": [
+            63.1572,
+            12.8992
+          ],
+          "type": "ice"
+        },
+        {
+          "name": "Ottsjö bus stop (562)",
+          "ll": [
+            63.217,
+            13.045
+          ],
+          "type": "bus"
+        }
       ],
       "hazards": [
         "There is no lake called Ånnsjön near Vålådalen. The only Ånnsjön is the big one at Ånn, so this route goes all the way there via Rekån.",
@@ -106,7 +379,58 @@
         "About 60 km with roughly 10 km on foot is a very long day, around 8–9 hours even on good ice. Headlamps handle the dark, but early-season snow and stream ice will set the pace.",
         "This is remote ground with poor phone coverage away from Ånnsjön. Don't go alone."
       ],
-      "note": "Nulltjärnarna on its own is a classic early-ice tarn. Bus 562 out and back makes a short first-ice day."
+      "note": "Nulltjärnarna on its own is a classic early-ice tarn. Bus 562 out and back makes a short first-ice day.",
+      "spots": [
+        {
+          "type": "maybe",
+          "name": "Rekån",
+          "from": [
+            63.1756,
+            12.8455
+          ],
+          "to": [
+            63.2717,
+            12.6441
+          ],
+          "text": "A 27 km mountain stream. Expect rapids, springs and snow bridges. Nobody has reported skating it, so assume some walking."
+        },
+        {
+          "type": "open",
+          "name": "Ånnsjön outlet at Ånn",
+          "at": [
+            63.3138,
+            12.6051
+          ],
+          "r": 500,
+          "text": "Often open water with swans where Ånnsjön drains east. Keep well clear."
+        },
+        {
+          "type": "maybe",
+          "name": "Kärrån",
+          "from": [
+            63.29,
+            12.6507
+          ],
+          "to": [
+            63.2994,
+            12.7263
+          ],
+          "text": "Stream ice. On your 2022 trip this stretch went at walking pace, 2–4 km/h."
+        },
+        {
+          "type": "maybe",
+          "name": "Skårrån",
+          "from": [
+            63.274,
+            12.9104
+          ],
+          "to": [
+            63.2311,
+            12.9261
+          ],
+          "text": "A stream falling about 6 km to Ottsjön. It is unknown whether it can be skated, so be ready to walk all of it."
+        }
+      ]
     },
     {
       "id": "ann-loop",
@@ -116,22 +440,57 @@
       "status": "skated",
       "yours": "You skated this on 20 Nov 2022: 46.8 km in 3 h 17 min moving, about 14 km/h on good ice.",
       "strava": "8144847762",
-      "chain": ["Ånnsjön", "Enan"],
+      "chain": [
+        "Ånnsjön",
+        "Enan"
+      ],
       "station": "storlien",
       "out": [
-        {"mode": "car", "text": "Drive to the west shore of Ånnsjön (your start point on the map), or take the train to Ånn and add 2–3 km."}
+        {
+          "mode": "car",
+          "text": "Drive to the west shore of Ånnsjön (your start point on the map), or take the train to Ånn and add 2–3 km."
+        }
       ],
       "back": [
-        {"mode": "car", "text": "Back to the car. A loop needs no shuttle."}
+        {
+          "mode": "car",
+          "text": "Back to the car. A loop needs no shuttle."
+        }
       ],
       "access": [
-        {"name": "Your 2022 start", "ll": [63.2946, 12.5008], "type": "car"},
-        {"name": "Ånn station", "ll": [63.3213, 12.5391], "type": "train"}
+        {
+          "name": "Your 2022 start",
+          "ll": [
+            63.2946,
+            12.5008
+          ],
+          "type": "car"
+        },
+        {
+          "name": "Ånn station",
+          "ll": [
+            63.3213,
+            12.5391
+          ],
+          "type": "train"
+        }
       ],
       "hazards": [
         "The north part is shallow and freezes first. Ice south of Granön and Järpön comes later.",
         "A sound on the north-shore route is known for thin ice.",
         "Open water at the outlet by Ånn."
+      ],
+      "spots": [
+        {
+          "type": "open",
+          "name": "Ånnsjön outlet at Ånn",
+          "at": [
+            63.3138,
+            12.6051
+          ],
+          "r": 500,
+          "text": "Often open water with swans where Ånnsjön drains east. Keep well clear."
+        }
       ]
     },
     {
@@ -142,20 +501,47 @@
       "status": "skated",
       "yours": "You've done four of these between 2020 and 2023, 8–20 km each.",
       "strava": "4402779984",
-      "chain": ["Ånnsjön"],
+      "chain": [
+        "Ånnsjön"
+      ],
       "station": "storlien",
       "out": [
-        {"mode": "car", "text": "Park at Ånn. By train you'd arrive in the morning and leave in the evening, so it's a full day."}
+        {
+          "mode": "car",
+          "text": "Park at Ånn. By train you'd arrive in the morning and leave in the evening, so it's a full day."
+        }
       ],
       "back": [
-        {"mode": "car", "text": "Back to the car."}
+        {
+          "mode": "car",
+          "text": "Back to the car."
+        }
       ],
       "access": [
-        {"name": "Ånn", "ll": [63.3169, 12.5520], "type": "car"}
+        {
+          "name": "Ånn",
+          "ll": [
+            63.3169,
+            12.552
+          ],
+          "type": "car"
+        }
       ],
       "hazards": [
         "Open water at the outlet east of Ånn.",
         "Thin ice in the sound on the north shore."
+      ],
+      "spots": [
+        {
+          "type": "open",
+          "name": "Ånnsjön outlet at Ånn",
+          "at": [
+            63.3138,
+            12.6051
+          ],
+          "r": 500,
+          "text": "Often open water with swans where Ånnsjön drains east. Keep well clear."
+        }
       ]
     },
     {
@@ -164,24 +550,61 @@
       "sub": "Straight across Ånnsjön",
       "kind": "cars",
       "status": "proposed",
-      "chain": ["Ånnsjön"],
+      "chain": [
+        "Ånnsjön"
+      ],
       "station": "storlien",
       "out": [
-        {"mode": "car", "text": "Two cars: leave one at Ånn and drive about 15 min to <b>Handöl</b>."},
-        {"mode": "bus", "text": "Weekdays: bus <b>571</b> serves Handöl Hanriis, but the detour into Handöl must be booked (call 0771-82 00 83 by 16:00 the weekday before)."}
+        {
+          "mode": "car",
+          "text": "Two cars: leave one at Ånn and drive about 15 min to <b>Handöl</b>."
+        },
+        {
+          "mode": "bus",
+          "text": "Weekdays: bus <b>571</b> serves Handöl Hanriis, but the detour into Handöl must be booked (call 0771-82 00 83 by 16:00 the weekday before)."
+        }
       ],
       "back": [
-        {"mode": "train", "text": "From Ånn: the car, the evening Norrtåg, or a weekday bus 571."}
+        {
+          "mode": "train",
+          "text": "From Ånn: the car, the evening Norrtåg, or a weekday bus 571."
+        }
       ],
       "access": [
-        {"name": "Handöl (Hanriis)", "ll": [63.2522, 12.4499], "type": "car"},
-        {"name": "Ånn station", "ll": [63.3213, 12.5391], "type": "train"}
+        {
+          "name": "Handöl (Hanriis)",
+          "ll": [
+            63.2522,
+            12.4499
+          ],
+          "type": "car"
+        },
+        {
+          "name": "Ånn station",
+          "ll": [
+            63.3213,
+            12.5391
+          ],
+          "type": "train"
+        }
       ],
       "hazards": [
         "The southern part freezes later than the north. Check the ice off Handöl first.",
         "Open water at the outlet by Ånn."
       ],
-      "note": "A short, easy option with two cars, and good for a first session of the season."
+      "note": "A short, easy option with two cars, and good for a first session of the season.",
+      "spots": [
+        {
+          "type": "open",
+          "name": "Ånnsjön outlet at Ånn",
+          "at": [
+            63.3138,
+            12.6051
+          ],
+          "r": 500,
+          "text": "Often open water with swans where Ånnsjön drains east. Keep well clear."
+        }
+      ]
     },
     {
       "id": "ottsjon",
@@ -191,23 +614,80 @@
       "status": "proposed",
       "yours": "You did a short skate at Sjöändan on 26 Nov 2022.",
       "strava": "8171086845",
-      "chain": ["Ottsjön"],
+      "chain": [
+        "Ottsjön"
+      ],
       "station": "storlien",
       "out": [
-        {"mode": "car", "text": "Two cars: park one in <b>Ottsjö</b> and drive to <b>Sjöändan</b> (about 10 km from the Undersåker bridge)."},
-        {"mode": "bus", "text": "Or use bus <b>562</b> to Ottsjö and skate out-and-back."}
+        {
+          "mode": "car",
+          "text": "Two cars: park one in <b>Ottsjö</b> and drive to <b>Sjöändan</b> (about 10 km from the Undersåker bridge)."
+        },
+        {
+          "mode": "bus",
+          "text": "Or use bus <b>562</b> to Ottsjö and skate out-and-back."
+        }
       ],
       "back": [
-        {"mode": "car", "text": "Collect the car in Ottsjö, or take bus 562 back to Undersåker."}
+        {
+          "mode": "car",
+          "text": "Collect the car in Ottsjö, or take bus 562 back to Undersåker."
+        }
       ],
       "access": [
-        {"name": "Sjöändan parking", "ll": [63.2102, 13.1571], "type": "car"},
-        {"name": "Ottsjö bus stop (562)", "ll": [63.2170, 13.0450], "type": "bus"}
+        {
+          "name": "Sjöändan parking",
+          "ll": [
+            63.2102,
+            13.1571
+          ],
+          "type": "car"
+        },
+        {
+          "name": "Ottsjö bus stop (562)",
+          "ll": [
+            63.217,
+            13.045
+          ],
+          "type": "bus"
+        }
       ],
       "hazards": [
         "Ottsjön is unregulated: regulation was refused in 1956. That usually means steadier ice than the reservoirs.",
         "Ridvadet is a shallow ford across the lake from Ottsjö village and may have weak ice (unverified).",
         "Inflows from the Vålån (south shore) and Skårrån (west end) can mean soft ice near their mouths."
+      ],
+      "spots": [
+        {
+          "type": "maybe",
+          "name": "Vålån inflow",
+          "at": [
+            63.1967,
+            13.0984
+          ],
+          "r": 400,
+          "text": "River mouth. Ice is often soft or thin near inflows."
+        },
+        {
+          "type": "maybe",
+          "name": "Skårrån inflow",
+          "at": [
+            63.2311,
+            12.9261
+          ],
+          "r": 300,
+          "text": "Stream mouth at the west end. Soft ice possible."
+        },
+        {
+          "type": "maybe",
+          "name": "Ridvadet ford",
+          "at": [
+            63.2125,
+            13.045
+          ],
+          "r": 450,
+          "text": "A shallow ford across the lake from Ottsjö village. Ice may be weak here. Position approximate, unverified."
+        }
       ]
     },
     {
@@ -216,24 +696,61 @@
       "sub": "Liten, train at both ends",
       "kind": "train",
       "status": "proposed",
-      "chain": ["Liten"],
+      "chain": [
+        "Liten"
+      ],
       "station": "morsil",
       "out": [
-        {"mode": "train", "text": "Norrtåg or bus 157 to <b>Järpen</b>. The station is about 100 m from the shore."}
+        {
+          "mode": "train",
+          "text": "Norrtåg or bus 157 to <b>Järpen</b>. The station is about 100 m from the shore."
+        }
       ],
       "back": [
-        {"mode": "walk", "text": "Leave the ice at the east end and walk about 2.5 km to <b>Mörsil</b> station."},
-        {"mode": "train", "text": "Norrtåg (4–5 a day) or bus 157 (roughly hourly)."}
+        {
+          "mode": "walk",
+          "text": "Leave the ice at the east end and walk about 2.5 km to <b>Mörsil</b> station."
+        },
+        {
+          "mode": "train",
+          "text": "Norrtåg (4–5 a day) or bus 157 (roughly hourly)."
+        }
       ],
       "access": [
-        {"name": "Järpen station", "ll": [63.3424, 13.4720], "type": "train"},
-        {"name": "Mörsil station", "ll": [63.3085, 13.6577], "type": "train"}
+        {
+          "name": "Järpen station",
+          "ll": [
+            63.3424,
+            13.472
+          ],
+          "type": "train"
+        },
+        {
+          "name": "Mörsil station",
+          "ll": [
+            63.3085,
+            13.6577
+          ],
+          "type": "train"
+        }
       ],
       "hazards": [
         "Järpströmmen carries the outflow from the Kallsjön power station into Liten at Järpen. Expect open or thin water near the start, so go out well away from the inflow (unverified).",
         "The Indalsälven flows through Liten, and it's probably regulated by the Mörsil dam, so watch for current lines and shore cracks."
       ],
-      "note": "This is the easiest trip to reach by public transport. It's short, so it suits an afternoon."
+      "note": "This is the easiest trip to reach by public transport. It's short, so it suits an afternoon.",
+      "spots": [
+        {
+          "type": "open",
+          "name": "Järpströmmen and Indalsälven inflow",
+          "at": [
+            63.35,
+            13.435
+          ],
+          "r": 900,
+          "text": "Outflow from the Kallsjön power station and the Indalsälven both enter the west end. Expect open or thin water. Position approximate."
+        }
+      ]
     },
     {
       "id": "kallsjon",
@@ -241,29 +758,74 @@
       "sub": "The south end of Kallsjön",
       "kind": "cars",
       "status": "proposed",
-      "chain": ["Kallsjön"],
+      "chain": [
+        "Kallsjön"
+      ],
       "station": "morsil",
       "out": [
-        {"mode": "car", "text": "Two cars: leave one at <b>Bonäset</b> and drive to <b>Huså</b>."},
-        {"mode": "bus", "text": "Weekdays: bus <b>553</b> from Järpen reaches Huså at about 08:00 (booked trip) and 15:55."}
+        {
+          "mode": "car",
+          "text": "Two cars: leave one at <b>Bonäset</b> and drive to <b>Huså</b>."
+        },
+        {
+          "mode": "bus",
+          "text": "Weekdays: bus <b>553</b> from Järpen reaches Huså at about 08:00 (booked trip) and 15:55."
+        }
       ],
       "back": [
-        {"mode": "car", "text": "Collect the car at Bonäset. Bus 551/553 passes Bonäshamn on weekdays."}
+        {
+          "mode": "car",
+          "text": "Collect the car at Bonäset. Bus 551/553 passes Bonäshamn on weekdays."
+        }
       ],
       "access": [
-        {"name": "Huså", "ll": [63.4885, 13.1224], "type": "car"},
-        {"name": "Kall", "ll": [63.4749, 13.2364], "type": "car"},
-        {"name": "Bonäset", "ll": [63.4127, 13.3701], "type": "car"}
+        {
+          "name": "Huså",
+          "ll": [
+            63.4885,
+            13.1224
+          ],
+          "type": "car"
+        },
+        {
+          "name": "Kall",
+          "ll": [
+            63.4749,
+            13.2364
+          ],
+          "type": "car"
+        },
+        {
+          "name": "Bonäset",
+          "ll": [
+            63.4127,
+            13.3701
+          ],
+          "type": "car"
+        }
       ],
       "hazards": [
         "Kallsjön is a deep (134 m), regulated reservoir. It freezes late, and you get cracks and slush along the shores.",
         "It's very exposed to wind, so watch out for open leads and drifting snow.",
         "No skating reports were found for Kallsjön, so treat it as unknown ice."
-      ]
+      ],
+      "spots": []
     }
   ],
   "stations": {
-    "storlien": {"name": "Storlien-Storvallen", "elev": 583, "id": "132170", "param": 2, "why": "583 m, beside Ånnsjön (about 530 m)"},
-    "morsil": {"name": "Mörsil", "elev": 420, "id": "133190", "param": 1, "why": "420 m, by Liten and nearest to south Kallsjön. Mörsil only reports 2–3 readings a day, so its daily mean is rougher"}
+    "storlien": {
+      "name": "Storlien-Storvallen",
+      "elev": 583,
+      "id": "132170",
+      "param": 2,
+      "why": "583 m, beside Ånnsjön (about 530 m)"
+    },
+    "morsil": {
+      "name": "Mörsil",
+      "elev": 420,
+      "id": "133190",
+      "param": 1,
+      "why": "420 m, by Liten and nearest to south Kallsjön. Mörsil only reports 2–3 readings a day, so its daily mean is rougher"
+    }
   }
 }
