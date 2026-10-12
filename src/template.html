@@ -369,7 +369,7 @@ function renderFilters(){
 }
 fEl.onclick = e => { const b = e.target.closest('button'); if (!b) return; filter = b.dataset.f; store.set('filter', filter); renderFilters(); renderRoutes(); styleRoutes(); };
 
-const SPOT = { walk:['On foot','walk'], slow:['Walking pace in 2022','maybe'], maybe:['Might have to walk','maybe'], open:['Open water, avoid','open'] };
+const SPOT = { walk:['On foot','walk'], slow:['Slow in 2022: skating and some walking','maybe'], maybe:['Might have to walk','maybe'], open:['Open water, avoid','open'] };
 function spotsHTML(r){
   const order = { open:0, walk:1, slow:2, maybe:3 };
   const list = [...r.spots].sort((a,b) => order[a.type] - order[b.type]);
