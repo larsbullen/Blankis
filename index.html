@@ -1,0 +1,483 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>Blankis</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
+<style>
+@font-face{font-family:Inter;src:url(fonts/inter-latin-wght-normal.woff2) format("woff2");font-weight:100 900;font-display:swap}
+:root{
+  --bg:#f4f4f2; --card:#ffffff; --surface-2:#eeeeeb; --line:#e2e2df; --grid:#e6e6e3;
+  --text:#111111; --text-2:#5c5c59; --text-3:#6b6b67;
+  --accent:#2f6fe4; --accent-text:#2459c0; --accent-soft:#e3ecfc;
+  --frost:#2f6fe4; --thaw:#c46f1e;
+  --warn:#d93a2b; --ok:#0c8a3c;
+  --radius:20px; --night:#d9d9d4; --civil:#ececE8; --day:#ffffff;
+  color-scheme:light;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#0c0c0c; --card:#171717; --surface-2:#222221; --line:#2c2c2b; --grid:#262625;
+  --text:#f5f5f4; --text-2:#a8a8a4; --text-3:#9a9a96;
+  --accent:#4f8ff0; --accent-text:#7aaaf5; --accent-soft:#16243b;
+  --frost:#4f8ff0; --thaw:#c47a30; --warn:#e5534b; --ok:#3fb36b; --night:#2a2a29; --civil:#4a4a48; --day:#8a8a86; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0c0c0c; --card:#171717; --surface-2:#222221; --line:#2c2c2b; --grid:#262625;
+  --text:#f5f5f4; --text-2:#a8a8a4; --text-3:#9a9a96;
+  --accent:#4f8ff0; --accent-text:#7aaaf5; --accent-soft:#16243b;
+  --frost:#4f8ff0; --thaw:#c47a30; --warn:#e5534b; --ok:#3fb36b; --night:#2a2a29; --civil:#4a4a48; --day:#8a8a86; color-scheme:dark}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--text);font:15px/1.5 Inter,system-ui,-apple-system,sans-serif;font-feature-settings:"cv11","ss01"}
+a{color:var(--accent-text)}
+.wrap{max-width:1240px;margin:0 auto;padding:20px 16px 60px}
+header{display:flex;align-items:flex-end;justify-content:space-between;gap:12px;margin:8px 0 20px}
+h1{font-size:44px;line-height:1;letter-spacing:-.04em;margin:0;font-weight:750}
+h1 span{color:var(--accent)}
+.tag{color:var(--text-2);margin:6px 0 0;max-width:46ch}
+.pillbtn{border:0;background:#111;color:#fff;border-radius:999px;padding:8px 14px;font:inherit;font-size:13px;font-weight:600;cursor:pointer}
+:root[data-theme="dark"] .pillbtn{background:#f5f5f4;color:#111}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .pillbtn{background:#f5f5f4;color:#111}}
+.grid{display:grid;grid-template-columns:minmax(0,1fr);gap:16px}
+.mapcol{position:relative;order:-1}
+@media (min-width:980px){.grid{grid-template-columns:minmax(0,1fr) minmax(0,1.05fr)}.mapcol{position:sticky;top:16px;align-self:start;order:0}}
+.card{background:var(--card);border-radius:var(--radius);padding:18px}
+.card h2{font-size:13px;text-transform:uppercase;letter-spacing:.06em;color:var(--text-2);margin:0 0 10px;font-weight:650}
+#map{height:46vh;min-height:300px;border-radius:var(--radius);overflow:hidden;background:var(--surface-2)}
+@media (min-width:980px){#map{height:calc(100vh - 32px)}}
+.leaflet-container{font:inherit}
+.maptoggle{position:absolute;z-index:500;right:10px;top:10px;display:flex;gap:6px}
+.maptoggle button{border:0;border-radius:999px;padding:6px 11px;font:inherit;font-size:12px;font-weight:600;background:var(--card);color:var(--text);box-shadow:0 1px 4px rgba(0,0,0,.18);cursor:pointer}
+.maptoggle button{background:#fff;color:#111}.maptoggle button.on{background:#111;color:#fff}
+/* ice gauge */
+.gauge-top{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;flex-wrap:wrap}
+.big{font-size:34px;font-weight:720;letter-spacing:-.03em;line-height:1.1}
+.big small{font-size:15px;color:var(--text-2);font-weight:500;letter-spacing:0}
+.seg{display:inline-flex;background:var(--surface-2);border-radius:999px;padding:3px}
+.seg button{border:0;background:none;color:var(--text-2);font:inherit;font-size:12.5px;font-weight:600;border-radius:999px;padding:5px 11px;cursor:pointer}
+.seg button.on{background:#111;color:#fff}
+:root[data-theme="dark"] .seg button.on{background:#f5f5f4;color:#111}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .seg button.on{background:#f5f5f4;color:#111}}
+.muted{color:var(--text-2)} .small{font-size:13px}
+.chart{position:relative;margin-top:12px}
+.chart svg{display:block;width:100%;height:120px}
+.tip{position:absolute;pointer-events:none;background:#111;color:#fff;font-size:12px;padding:5px 8px;border-radius:8px;white-space:nowrap;transform:translate(-50%,-110%);opacity:0;transition:opacity .1s}
+.legend{display:flex;gap:14px;font-size:12px;color:var(--text-2);margin-top:6px}
+.legend i{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:5px;vertical-align:-1px}
+/* routes */
+.filters{display:flex;gap:6px;flex-wrap:wrap;margin:4px 0 12px}
+.filters button{border:0;background:var(--surface-2);color:var(--text);border-radius:999px;padding:7px 13px;font:inherit;font-size:13px;font-weight:600;cursor:pointer}
+.filters button.on{background:#111;color:#fff}
+:root[data-theme="dark"] .filters button.on{background:#f5f5f4;color:#111}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .filters button.on{background:#f5f5f4;color:#111}}
+.route{background:var(--card);border-radius:var(--radius);margin-bottom:10px;overflow:hidden}
+.route>button{all:unset;box-sizing:border-box;display:grid;grid-template-columns:1fr auto;gap:4px 12px;width:100%;padding:16px 18px;cursor:pointer}
+.route>button:focus-visible{outline:2px solid var(--accent);outline-offset:-2px;border-radius:var(--radius)}
+.rname{font-weight:700;font-size:16.5px;letter-spacing:-.01em}
+.rsub{color:var(--text-2);font-size:13.5px;grid-column:1}
+.rkm{text-align:right;font-weight:700;font-size:18px;letter-spacing:-.02em;white-space:nowrap}
+.rkm small{display:block;font-size:12px;color:var(--text-2);font-weight:500}
+.pills{grid-column:1/-1;display:flex;gap:6px;flex-wrap:wrap;margin-top:6px}
+.pill{font-size:11.5px;font-weight:650;border-radius:999px;padding:3px 9px;background:var(--surface-2);color:var(--text-2)}
+.pill.skated{background:var(--accent-soft);color:var(--accent-text)}
+.pill.expedition{background:#111;color:#fff}
+:root[data-theme="dark"] .pill.expedition{background:#f5f5f4;color:#111}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .pill.expedition{background:#f5f5f4;color:#111}}
+.route.open{outline:2px solid var(--accent)}
+.detail{display:none;padding:0 18px 18px}
+.route.open .detail{display:block}
+.yours{background:var(--accent-soft);color:var(--text);border-radius:14px;padding:10px 12px;font-size:14px;margin-bottom:12px}
+.chain{display:flex;flex-wrap:wrap;gap:4px 0;font-size:13px;margin:0 0 14px;color:var(--text-2)}
+.chain span:not(:last-child)::after{content:"→";margin:0 6px;color:var(--text-3)}
+.chain .w{font-style:italic}
+h3{font-size:12.5px;text-transform:uppercase;letter-spacing:.06em;color:var(--text-2);margin:16px 0 6px;font-weight:650}
+.legs{list-style:none;margin:0;padding:0}
+.legs li{display:grid;grid-template-columns:26px 1fr;gap:8px;padding:6px 0;font-size:14px}
+.legs .ic{width:26px;height:26px;border-radius:8px;background:var(--surface-2);display:grid;place-items:center;font-size:13px}
+.hz{margin:0;padding-left:18px;font-size:14px}
+.hz li{margin:4px 0}
+.note{font-size:14px;color:var(--text-2);margin-top:10px}
+/* planner */
+.plan{background:var(--surface-2);border-radius:16px;padding:14px;margin-top:14px}
+.plan .row{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+@media (max-width:520px){.plan .row{grid-template-columns:1fr 1fr}.plan .row label:last-child{grid-column:1/-1}}
+.plan label{font-size:12px;color:var(--text-2);font-weight:600;display:flex;flex-direction:column;gap:4px}
+.plan input,.plan select{font:inherit;font-size:14px;color:var(--text);background:var(--card);border:0;border-radius:10px;padding:8px 9px;width:100%;min-width:0}
+.tl{margin:12px 0 0;padding:0;list-style:none}
+.tl li{display:grid;grid-template-columns:52px 1fr;gap:10px;padding:5px 0;font-size:14px;border-top:1px solid var(--line)}
+.tl li:first-child{border-top:0}
+.tl b{font-variant-numeric:tabular-nums}
+.verdict{margin-top:10px;font-weight:650;font-size:14px;display:flex;gap:8px;align-items:flex-start}
+.verdict .dot{flex:none;width:20px;height:20px;border-radius:50%;display:grid;place-items:center;color:#fff;font-size:12px;margin-top:1px}
+.verdict.ok .dot{background:var(--ok)} .verdict.bad .dot{background:var(--warn)}
+.daybar{position:relative;height:10px;border-radius:999px;background:var(--night);margin:12px 0 4px;overflow:hidden}
+.daybar .light{position:absolute;top:0;bottom:0;background:var(--day)}
+.daybar .civil{position:absolute;top:0;bottom:0;background:var(--civil)}
+.daybar .trip{position:absolute;top:2px;bottom:2px;background:var(--accent);border-radius:999px}
+.dayaxis{display:flex;justify-content:space-between;font-size:11px;color:var(--text-3)}
+.links a{display:block;padding:8px 0;border-top:1px solid var(--line);text-decoration:none;color:var(--text);font-size:14px}
+.links a:first-of-type{border-top:0}
+.links a span{display:block;color:var(--text-2);font-size:12.5px}
+.check{columns:2;column-gap:20px;font-size:14px;padding-left:18px;margin:0}
+@media (max-width:520px){.check{columns:1}}
+.check li{margin:3px 0;break-inside:avoid}
+footer{color:var(--text-3);font-size:12px;margin-top:24px}
+.stack>*+*{margin-top:16px}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <div>
+    <h1>Blankis<span>.</span></h1>
+    <p class="tag">Long-distance ice skating around Åre. Take the train or bus out, then skate home.</p>
+  </div>
+  <button class="pillbtn" id="theme" type="button">Theme</button>
+</header>
+
+<div class="grid">
+  <div class="stack">
+    <section class="card" id="gauge">
+      <div class="gauge-top">
+        <h2 style="margin:0">Ice model</h2>
+        <div class="seg" id="stseg" role="tablist" aria-label="Weather station"></div>
+      </div>
+      <div style="margin-top:10px" id="gaugebody"><span class="muted">Loading SMHI temperatures…</span></div>
+    </section>
+
+    <section>
+      <div class="filters" id="filters" role="group" aria-label="Filter routes"></div>
+      <div id="routes"></div>
+    </section>
+
+    <section class="card">
+      <h2>Before you go</h2>
+      <ul class="check">
+        <li>Ice picks (isdubbar) around your neck</li>
+        <li>Ice pole (isstav) to test ahead</li>
+        <li>Throw rope (kastlina) per group</li>
+        <li>Dry clothes in a sealed bag, in a backpack with a hip belt</li>
+        <li>Phone in a waterproof pouch, and the 112 app</li>
+        <li>Never alone, with 10–20 m between skaters</li>
+        <li>Tell someone your route and when you'll be back</li>
+        <li>Skate guards or light boots for the walking stretches</li>
+        <li>Headlamp: the December day is about 5 hours</li>
+        <li>Rule of thumb: 5 cm of clear ice per person, 10 cm for a group</li>
+      </ul>
+    </section>
+
+    <section class="card links">
+      <h2>Ice reports &amp; timetables</h2>
+      <a href="https://www.facebook.com/groups/164160880279551/" target="_blank" rel="noopener">Isnördar i Västjämtland<span>Facebook group, the main local source of ice reports</span></a>
+      <a href="https://slsk.skridsko.net/" target="_blank" rel="noopener">SLSK on Skridskonätet<span>Storsjöns Långfärdsskridskoklubb, Östersund. Membership gives ice reports and a safety course.</span></a>
+      <a href="https://norrtag.se/tidtabeller/" target="_blank" rel="noopener">Norrtåg timetables<span>Mittbanan. No tickets on board, so buy in the app first.</span></a>
+      <a href="https://ltr.se/" target="_blank" rel="noopener">Länstrafiken Jämtland<span>Buses 157, 562, 571, 551/553. Booked trips: 0771-82 00 83 by 16:00 the weekday before.</span></a>
+      <a href="https://enaforsholm.se/langfardsskridskor/" target="_blank" rel="noopener">Enaforsholm<span>Guided Enan–Ånnsjön tours</span></a>
+      <a href="https://fjallsport.com/langfardsskridskor" target="_blank" rel="noopener">Fjällsport Duved<span>Skate rental and shop</span></a>
+    </section>
+    <footer>
+      Map © OpenStreetMap contributors, OpenTopoMap (CC-BY-SA). Temperatures: SMHI open data (CC BY 4.0).<br>
+      Routes on lakes are drawn over OSM water and are indicative, not tracks. Your own routes are your Strava GPS. Bus times are from the LTR winter timetable 2026–27. Norrtåg's winter times come out in December.
+    </footer>
+  </div>
+
+  <div class="mapcol">
+    <div id="map" role="region" aria-label="Map of routes"></div>
+    <div class="maptoggle"><button id="mTopo" class="on" type="button">Topo</button><button id="mOsm" type="button">Map</button></div>
+  </div>
+</div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+<script>
+const META = {"routes":[{"id":"enafors-duved","name":"Enafors → Duved","sub":"Enan, Ånnsjön and the tarn chain","kind":"train","status":"skated","yours":"You skated this on 3 Dec 2022: 50.9 km, 6 h 36 min moving. Clear ice with some snow on top, no open water.","strava":"8203086392","chain":["Enan","Ånnsjön","Kärrån","Kösjön","Rängen","Moen","Greningen"],"station":"storlien","out":[{"mode":"train","text":"Norrtåg westbound to <b>Enafors<\/b>. Only 2 trains a day stop there, so take the morning one."},{"mode":"bus","text":"Weekdays: bus <b>571<\/b> leaves Duved at 06:00 and 13:50 towards Enafors. The 06:00 works for a pre-dawn start in November."}],"back":[{"mode":"walk","text":"Leave the ice where Greningen ends and walk about 1.5 km down into <b>Duved<\/b>."},{"mode":"train","text":"From Duved: Norrtåg about 4 a day, or bus <b>157<\/b> to Åre/Undersåker/Järpen roughly every hour, every day."}],"access":[{"name":"Enafors station","ll":[63.2898,12.3375],"type":"train"},{"name":"Duved station","ll":[63.39,12.9176],"type":"train"}],"hazards":["Enanfors waterfall is right next to Enafors station. Get on the ice below it.","The Enan is river ice: thinner over the current and on the outside of bends. Its mouth into Ånnsjön is shallow and sandy.","Kärrån is a stream. Watch for springs and soft spots. Your track avoided Ånnsjön's outlet at Ånn, which is often open.","Greningen is a regulated reservoir. The water level moves, so expect cracks and slush along the shore."]},{"id":"enafors-ann","name":"Enafors → Ånn","sub":"Down the Enan and across Ånnsjön","kind":"train","status":"proposed","chain":["Enan","Ånnsjön"],"station":"storlien","out":[{"mode":"train","text":"Norrtåg westbound to <b>Enafors<\/b> in the morning."}],"back":[{"mode":"train","text":"Norrtåg eastbound from <b>Ånn<\/b>, which also has 2 trains a day. With the autumn timetable that meant an evening train."},{"mode":"bus","text":"Weekdays: bus <b>571<\/b> eastbound from Storlien at 14:55 and 17:10 passes Ånn (exact time at Ånn unverified)."}],"access":[{"name":"Enafors station","ll":[63.2898,12.3375],"type":"train"},{"name":"Ånn station","ll":[63.3213,12.5391],"type":"train"}],"hazards":["Enanfors waterfall is next to the station, so start below it.","River ice on the Enan, and a shallow, sandy mouth.","Ånnsjön's outlet east of Ånn (around 63.314, 12.605) is often open water with swans. Leave the ice at the station shore, not at the outlet."],"note":"Enaforsholm sells a guided 9 km Enan–Ånnsjön tour, so the Enan section is known skating."},{"id":"ann-ottsjo","name":"Ånn → Ottsjö","sub":"Kärrån, Kösjön, the Gräpplingen tarns and Ottsjön","kind":"train-bus","status":"proposed","chain":["Ånnsjön","Kärrån","Kösjön","walk ~3 km","Stentjärnen","Tarmen","Lill-Gräpplingen","Stor-Gräpplingen","Skårrån","Ottsjön"],"station":"storlien","out":[{"mode":"train","text":"Norrtåg westbound to <b>Ånn<\/b> in the morning."}],"back":[{"mode":"bus","text":"Bus <b>562<\/b> from <b>Ottsjö<\/b> to Undersåker, then train or bus 157. Weekdays it leaves Vålådalen at 06:50, 10:00 and 14:20 (the 15:10 and 17:10 skip Ottsjö village). Weekends 10:00, 15:00 and 18:35. It reaches Ottsjö about 15 min later (unverified)."}],"access":[{"name":"Ånn station","ll":[63.3213,12.5391],"type":"train"},{"name":"Ottsjö bus stop (562)","ll":[63.217,13.045],"type":"bus"}],"hazards":["Kärrån is stream ice. You skated it in 2022, but its condition varies from year to year.","There is no mapped stream between Kösjön and Stentjärnen, so expect about 3 km on foot through snow. Bring skate guards or boots.","Skårrån falls about 6 km down to Ottsjön. Whether it can be skated is unknown, so be ready to walk it.","Ridvadet is a shallow ford across Ottsjön at Ottsjö village and may have weak ice (unverified)."],"note":"This is the second half of your Vålådalen idea, and it works on its own as a train-out, bus-home day."},{"id":"vala-ottsjo","name":"Vålådalen → Ånnsjön → Ottsjö","sub":"Your idea: Nulltjärnarna, down Rekån, back along the tarn chain","kind":"bus","status":"expedition","chain":["Nulltjärnarna","walk 3.4 km","Rekån (27 km stream)","Ånnsjön","Kärrån","Kösjön","walk ~3 km","Gräpplingen tarns","Skårrån","Ottsjön"],"station":"storlien","out":[{"mode":"bus","text":"Bus <b>562<\/b> from Undersåker to <b>Vålådalen<\/b>: weekdays 08:00, Sat 08:00, Sun 08:45. Then about 3.5 km on foot to Nulltjärnarna."}],"back":[{"mode":"bus","text":"Bus <b>562<\/b> from Ottsjö back to Undersåker (see the Ånn → Ottsjö route), or leave a car at Sjöändan."}],"access":[{"name":"Vålådalen västra (562)","ll":[63.1487,12.9653],"type":"bus"},{"name":"Nulltjärnarna","ll":[63.1572,12.8992],"type":"ice"},{"name":"Ottsjö bus stop (562)","ll":[63.217,13.045],"type":"bus"}],"hazards":["There is no lake called Ånnsjön near Vålådalen. The only Ånnsjön is the big one at Ånn, so this route goes all the way there via Rekån.","Rekån is a 27 km mountain stream. Small inflows freeze early, but rapids, springs and snow bridges are all possible. Nobody has reported skating its upper part.","About 60 km with roughly 10 km on foot won't fit in December daylight (about 5 hours). Plan it for early November or March.","This is remote ground with poor phone coverage away from Ånnsjön. Don't go alone."],"note":"Nulltjärnarna on its own is a classic early-ice tarn. Bus 562 out and back makes a short first-ice day."},{"id":"ann-loop","name":"Ånnsjön grand loop","sub":"Out-and-back across Ånnsjön and up the Enan","kind":"loop","status":"skated","yours":"You skated this on 20 Nov 2022: 46.8 km in 3 h 17 min moving, about 14 km/h on good ice.","strava":"8144847762","chain":["Ånnsjön","Enan"],"station":"storlien","out":[{"mode":"car","text":"Drive to the west shore of Ånnsjön (your start point on the map), or take the train to Ånn and add 2–3 km."}],"back":[{"mode":"car","text":"Back to the car. A loop needs no shuttle."}],"access":[{"name":"Your 2022 start","ll":[63.2946,12.5008],"type":"car"},{"name":"Ånn station","ll":[63.3213,12.5391],"type":"train"}],"hazards":["The north part is shallow and freezes first. Ice south of Granön and Järpön comes later.","A sound on the north-shore route is known for thin ice.","Open water at the outlet by Ånn."]},{"id":"ann-short","name":"Ånn shore laps","sub":"Your regular short sessions from Ånn","kind":"loop","status":"skated","yours":"You've done four of these between 2020 and 2023, 8–20 km each.","strava":"4402779984","chain":["Ånnsjön"],"station":"storlien","out":[{"mode":"car","text":"Park at Ånn. By train you'd arrive in the morning and leave in the evening, so it's a full day."}],"back":[{"mode":"car","text":"Back to the car."}],"access":[{"name":"Ånn","ll":[63.3169,12.552],"type":"car"}],"hazards":["Open water at the outlet east of Ånn.","Thin ice in the sound on the north shore."]},{"id":"handol-ann","name":"Handöl → Ånn","sub":"Straight across Ånnsjön","kind":"cars","status":"proposed","chain":["Ånnsjön"],"station":"storlien","out":[{"mode":"car","text":"Two cars: leave one at Ånn and drive about 15 min to <b>Handöl<\/b>."},{"mode":"bus","text":"Weekdays: bus <b>571<\/b> serves Handöl Hanriis, but the detour into Handöl must be booked (call 0771-82 00 83 by 16:00 the weekday before)."}],"back":[{"mode":"train","text":"From Ånn: the car, the evening Norrtåg, or a weekday bus 571."}],"access":[{"name":"Handöl (Hanriis)","ll":[63.2522,12.4499],"type":"car"},{"name":"Ånn station","ll":[63.3213,12.5391],"type":"train"}],"hazards":["The southern part freezes later than the north. Check the ice off Handöl first.","Open water at the outlet by Ånn."],"note":"A short, easy option with two cars, and good for a first session of the season."},{"id":"ottsjon","name":"Ottsjön end to end","sub":"Sjöändan → west end → Ottsjö","kind":"cars","status":"proposed","yours":"You did a short skate at Sjöändan on 26 Nov 2022.","strava":"8171086845","chain":["Ottsjön"],"station":"storlien","out":[{"mode":"car","text":"Two cars: park one in <b>Ottsjö<\/b> and drive to <b>Sjöändan<\/b> (about 10 km from the Undersåker bridge)."},{"mode":"bus","text":"Or use bus <b>562<\/b> to Ottsjö and skate out-and-back."}],"back":[{"mode":"car","text":"Collect the car in Ottsjö, or take bus 562 back to Undersåker."}],"access":[{"name":"Sjöändan parking","ll":[63.2102,13.1571],"type":"car"},{"name":"Ottsjö bus stop (562)","ll":[63.217,13.045],"type":"bus"}],"hazards":["Ottsjön is unregulated: regulation was refused in 1956. That usually means steadier ice than the reservoirs.","Ridvadet is a shallow ford across the lake from Ottsjö village and may have weak ice (unverified).","Inflows from the Vålån (south shore) and Skårrån (west end) can mean soft ice near their mouths."]},{"id":"liten","name":"Järpen → Mörsil","sub":"Liten, train at both ends","kind":"train","status":"proposed","chain":["Liten"],"station":"morsil","out":[{"mode":"train","text":"Norrtåg or bus 157 to <b>Järpen<\/b>. The station is about 100 m from the shore."}],"back":[{"mode":"walk","text":"Leave the ice at the east end and walk about 2.5 km to <b>Mörsil<\/b> station."},{"mode":"train","text":"Norrtåg (4–5 a day) or bus 157 (roughly hourly)."}],"access":[{"name":"Järpen station","ll":[63.3424,13.472],"type":"train"},{"name":"Mörsil station","ll":[63.3085,13.6577],"type":"train"}],"hazards":["Järpströmmen carries the outflow from the Kallsjön power station into Liten at Järpen. Expect open or thin water near the start, so go out well away from the inflow (unverified).","The Indalsälven flows through Liten, and it's probably regulated by the Mörsil dam, so watch for current lines and shore cracks."],"note":"This is the easiest trip to reach by public transport. It's short, so it suits an afternoon."},{"id":"kallsjon","name":"Huså → Kall → Bonäset","sub":"The south end of Kallsjön","kind":"cars","status":"proposed","chain":["Kallsjön"],"station":"morsil","out":[{"mode":"car","text":"Two cars: leave one at <b>Bonäset<\/b> and drive to <b>Huså<\/b>."},{"mode":"bus","text":"Weekdays: bus <b>553<\/b> from Järpen reaches Huså at about 08:00 (booked trip) and 15:55."}],"back":[{"mode":"car","text":"Collect the car at Bonäset. Bus 551/553 passes Bonäshamn on weekdays."}],"access":[{"name":"Huså","ll":[63.4885,13.1224],"type":"car"},{"name":"Kall","ll":[63.4749,13.2364],"type":"car"},{"name":"Bonäset","ll":[63.4127,13.3701],"type":"car"}],"hazards":["Kallsjön is a deep (134 m), regulated reservoir. It freezes late, and you get cracks and slush along the shores.","It's very exposed to wind, so watch out for open leads and drifting snow.","No skating reports were found for Kallsjön, so treat it as unknown ice."]}],"stations":{"storlien":{"name":"Storlien-Storvallen","elev":583,"id":"132170","param":2,"why":"583 m, beside Ånnsjön (about 530 m)"},"morsil":{"name":"Mörsil","elev":420,"id":"133190","param":1,"why":"420 m, by Liten and nearest to south Kallsjön. Mörsil only reports 2–3 readings a day, so its daily mean is rougher"}}};
+const GEO = {"enafors-duved":{"line":[[63.28358,12.33048],[63.28205,12.3287],[63.28097,12.3286],[63.28042,12.32919],[63.27988,12.33058],[63.27966,12.3331],[63.27973,12.33446],[63.28012,12.33493],[63.28144,12.3329],[63.28243,12.33284],[63.28294,12.33387],[63.28337,12.33569],[63.28339,12.33821],[63.28237,12.34393],[63.28179,12.34945],[63.28218,12.35483],[63.28212,12.36103],[63.28178,12.36398],[63.28113,12.36589],[63.27915,12.36861],[63.27821,12.37047],[63.27742,12.37667],[63.27632,12.37934],[63.27489,12.38158],[63.27178,12.38372],[63.27118,12.38486],[63.27094,12.38592],[63.271,12.38673],[63.27142,12.38759],[63.27483,12.39129],[63.27553,12.39295],[63.27601,12.397],[63.2756,12.39864],[63.27208,12.40088],[63.27162,12.4021],[63.27164,12.40332],[63.27267,12.40507],[63.27269,12.4066],[63.27114,12.41356],[63.27071,12.41921],[63.27066,12.42529],[63.26996,12.43278],[63.26935,12.44495],[63.26967,12.4517],[63.27107,12.45819],[63.27142,12.46181],[63.27075,12.46652],[63.2708,12.46817],[63.27255,12.48015],[63.27341,12.48201],[63.27465,12.48307],[63.27676,12.48588],[63.28071,12.48838],[63.28257,12.49004],[63.28277,12.49065],[63.28301,12.49406],[63.28239,12.49817],[63.28097,12.50272],[63.27754,12.50884],[63.27725,12.51831],[63.27742,12.52016],[63.27679,12.52614],[63.27681,12.52994],[63.27654,12.53292],[63.2766,12.53622],[63.27725,12.53715],[63.27779,12.53733],[63.27994,12.5367],[63.28115,12.53688],[63.28154,12.53727],[63.28285,12.54054],[63.28323,12.54269],[63.28314,12.54475],[63.28333,12.54574],[63.28365,12.55221],[63.28456,12.55645],[63.28467,12.56305],[63.28514,12.56637],[63.2856,12.5681],[63.2862,12.56925],[63.28675,12.57252],[63.28735,12.57404],[63.28725,12.57528],[63.28668,12.57743],[63.28485,12.58229],[63.2841,12.58361],[63.28162,12.5865],[63.2811,12.59046],[63.28134,12.59267],[63.28197,12.59165],[63.28301,12.59265],[63.28462,12.59643],[63.28675,12.60258],[63.28708,12.6079],[63.28652,12.61522],[63.28791,12.63398],[63.28844,12.63853],[63.28895,12.64048],[63.28999,12.65076],[63.29118,12.65597],[63.29207,12.65767],[63.29201,12.65899],[63.29283,12.65987],[63.29243,12.66155],[63.2932,12.66198],[63.29281,12.66283],[63.29281,12.66371],[63.29229,12.6642],[63.29264,12.66509],[63.29233,12.66622],[63.2929,12.6673],[63.29233,12.66809],[63.29176,12.66811],[63.2915,12.66869],[63.29167,12.67183],[63.29126,12.67357],[63.29139,12.67427],[63.29054,12.67616],[63.29068,12.6771],[63.29022,12.67826],[63.29045,12.67871],[63.29047,12.68012],[63.29137,12.67986],[63.29111,12.68135],[63.29167,12.68154],[63.29092,12.68263],[63.29102,12.68358],[63.29148,12.68434],[63.29135,12.68323],[63.29183,12.68327],[63.29218,12.68501],[63.29277,12.68543],[63.29229,12.68689],[63.29296,12.68625],[63.29377,12.68745],[63.29372,12.68792],[63.29329,12.6878],[63.29317,12.68815],[63.29322,12.69124],[63.29356,12.69312],[63.29419,12.69259],[63.29453,12.69396],[63.29416,12.69507],[63.29319,12.69605],[63.29484,12.69713],[63.29531,12.69814],[63.29579,12.69836],[63.29574,12.70253],[63.29598,12.7035],[63.29563,12.70422],[63.29553,12.70579],[63.2958,12.70717],[63.29574,12.70906],[63.29547,12.71099],[63.29486,12.71279],[63.29379,12.71456],[63.29382,12.71733],[63.29365,12.71782],[63.29386,12.71785],[63.29386,12.71824],[63.29362,12.71903],[63.29382,12.71986],[63.29436,12.72045],[63.29566,12.72007],[63.29695,12.72054],[63.29782,12.72187],[63.29788,12.72149],[63.29784,12.72198],[63.29809,12.72206],[63.29804,12.72317],[63.2988,12.72316],[63.29933,12.72489],[63.29945,12.72653],[63.2997,12.72719],[63.29967,12.72853],[63.29916,12.7297],[63.29973,12.73002],[63.29995,12.73137],[63.30051,12.73246],[63.30137,12.73537],[63.30243,12.73746],[63.30191,12.73903],[63.30236,12.74162],[63.3028,12.74226],[63.30317,12.74142],[63.30333,12.74162],[63.30327,12.74219],[63.30232,12.74329],[63.30188,12.74431],[63.30132,12.74691],[63.30045,12.74895],[63.3002,12.7506],[63.30028,12.75199],[63.29965,12.75272],[63.29925,12.75387],[63.29844,12.75409],[63.29684,12.75233],[63.2943,12.75279],[63.29417,12.75315],[63.29429,12.75547],[63.29478,12.75715],[63.29443,12.76112],[63.29386,12.76136],[63.29373,12.76319],[63.29327,12.76396],[63.29295,12.76398],[63.29395,12.76524],[63.29452,12.76503],[63.29716,12.76217],[63.3003,12.75735],[63.30167,12.75725],[63.30198,12.7576],[63.30209,12.75842],[63.30234,12.76172],[63.30229,12.7638],[63.30193,12.76702],[63.30097,12.76917],[63.30098,12.7712],[63.30163,12.77344],[63.30209,12.77424],[63.30182,12.77461],[63.30515,12.7717],[63.306,12.77014],[63.30645,12.77008],[63.30777,12.77057],[63.30909,12.77274],[63.31023,12.77374],[63.31098,12.77493],[63.31147,12.77757],[63.31148,12.77967],[63.31106,12.7833],[63.31266,12.78612],[63.31366,12.78714],[63.31372,12.78851],[63.31328,12.79189],[63.31328,12.79497],[63.31402,12.79797],[63.31496,12.80065],[63.31507,12.80199],[63.31558,12.80347],[63.31529,12.80664],[63.3154,12.80926],[63.31594,12.81039],[63.31649,12.81273],[63.31692,12.81277],[63.31709,12.81349],[63.31859,12.81385],[63.31918,12.81472],[63.32123,12.82114],[63.32118,12.82266],[63.32136,12.82329],[63.32102,12.82465],[63.32051,12.82555],[63.32136,12.82443],[63.32108,12.82519],[63.32109,12.82686],[63.32078,12.82663],[63.32069,12.82779],[63.32102,12.82837],[63.32148,12.83399],[63.32188,12.83661],[63.32216,12.83729],[63.32385,12.83534],[63.32485,12.83324],[63.32501,12.83226],[63.32661,12.82997],[63.3266,12.82875],[63.3271,12.82789],[63.32773,12.82789],[63.32929,12.82913],[63.33008,12.82826],[63.33197,12.82349],[63.3327,12.82286],[63.33452,12.81917],[63.33574,12.81555],[63.33694,12.81697],[63.33738,12.8164],[63.3375,12.81529],[63.33818,12.81527],[63.33898,12.81438],[63.33974,12.8161],[63.3405,12.81665],[63.34081,12.81748],[63.34033,12.8182],[63.34054,12.81882],[63.34035,12.82015],[63.3399,12.82055],[63.34001,12.82288],[63.34049,12.82335],[63.34118,12.82552],[63.34225,12.82687],[63.34239,12.82813],[63.34269,12.82878],[63.34348,12.82929],[63.34458,12.8311],[63.34523,12.83107],[63.3463,12.82998],[63.34685,12.83125],[63.34702,12.83086],[63.34743,12.83133],[63.3476,12.83075],[63.34774,12.83162],[63.34781,12.83118],[63.34817,12.83116],[63.34845,12.83171],[63.34905,12.83161],[63.3496,12.83321],[63.34991,12.8332],[63.34986,12.83452],[63.35119,12.83631],[63.35065,12.83938],[63.35076,12.84091],[63.35013,12.84259],[63.35119,12.84947],[63.35128,12.85213],[63.35111,12.85348],[63.35133,12.85519],[63.3517,12.85636],[63.35109,12.85948],[63.35121,12.86116],[63.35275,12.86821],[63.35435,12.87152],[63.35533,12.87295],[63.35558,12.87682],[63.35594,12.87812],[63.35729,12.87948],[63.35829,12.87957],[63.35827,12.88091],[63.35942,12.88299],[63.36284,12.88626],[63.36365,12.88668],[63.36474,12.88614],[63.3654,12.88469],[63.36608,12.8812],[63.36615,12.88002],[63.36602,12.88025],[63.36678,12.87813],[63.36726,12.87816],[63.36767,12.87939],[63.36826,12.87912],[63.36861,12.87792],[63.36952,12.87735],[63.3719,12.87304],[63.37228,12.87283],[63.37299,12.87335],[63.37411,12.87523],[63.37589,12.87442],[63.37658,12.87455],[63.37764,12.87651],[63.37941,12.87765],[63.38058,12.88341],[63.38127,12.88468],[63.38259,12.88927],[63.3833,12.89087],[63.38355,12.89342],[63.38562,12.89516],[63.38795,12.90099]],"walks":[],"ice_km":49.4,"walk_km":0.0},"enafors-ann":{"line":[[63.28983,12.33775],[63.28983,12.33675],[63.28691,12.33025],[63.28354,12.32975],[63.28354,12.33075],[63.28264,12.33275],[63.28264,12.33425],[63.28331,12.33625],[63.28331,12.34125],[63.28241,12.34474],[63.28174,12.34924],[63.28174,12.35274],[63.28219,12.35524],[63.28219,12.36374],[63.27814,12.37173],[63.27769,12.37423],[63.27769,12.37673],[63.27656,12.37923],[63.27454,12.38223],[63.27229,12.38323],[63.27094,12.38623],[63.27139,12.38773],[63.27341,12.38973],[63.27544,12.39423],[63.27611,12.39673],[63.27611,12.39773],[63.27544,12.39922],[63.27251,12.40022],[63.27139,12.40272],[63.27274,12.40572],[63.27274,12.40872],[63.27161,12.41172],[63.27094,12.41572],[63.27094,12.42721],[63.27026,12.43171],[63.27026,12.44171],[63.26981,12.44421],[63.26981,12.45321],[63.27161,12.4617],[63.27161,12.4647],[63.27094,12.4667],[63.27094,12.4707],[63.27184,12.4742],[63.27206,12.4767],[63.27251,12.4777],[63.27296,12.4777],[63.30221,12.54267],[63.30401,12.54717],[63.30401,12.55017],[63.30603,12.55467],[63.31278,12.55467],[63.31705,12.54517],[63.31705,12.54417],[63.31885,12.54017],[63.32088,12.54017],[63.32133,12.53917]],"walks":[[[63.28983,12.33775],[63.28983,12.33675],[63.28713,12.33075]],[[63.28354,12.33025],[63.28286,12.33225]],[[63.30221,12.54267],[63.30378,12.54667]],[[63.31885,12.54017],[63.32088,12.54017],[63.32133,12.53917]]],"ice_km":16.4,"walk_km":1.3},"ann-ottsjo":{"line":[[63.32127,12.53935],[63.31992,12.53935],[63.3188,12.54185],[63.3188,12.54285],[63.3107,12.56084],[63.3107,12.56234],[63.3098,12.56434],[63.30957,12.56584],[63.30957,12.58733],[63.30012,12.60832],[63.29967,12.61282],[63.2918,12.63082],[63.29157,12.64981],[63.29067,12.65281],[63.29067,12.65431],[63.29202,12.65781],[63.29202,12.65931],[63.29247,12.66031],[63.2927,12.6673],[63.2918,12.6693],[63.2918,12.6733],[63.29157,12.6753],[63.2909,12.6768],[63.29067,12.6803],[63.29135,12.6823],[63.29135,12.6838],[63.29315,12.6878],[63.29315,12.69129],[63.2945,12.69379],[63.2945,12.69529],[63.29405,12.69629],[63.29495,12.69729],[63.29585,12.69929],[63.29607,12.70079],[63.29562,12.71079],[63.2936,12.71529],[63.29337,12.72128],[63.29382,12.72228],[63.29382,12.72428],[63.29607,12.72928],[63.29652,12.72928],[63.29765,12.73178],[63.299,12.73178],[63.29922,12.73128],[63.29967,12.73178],[63.29967,12.73328],[63.30035,12.73478],[63.3008,12.73878],[63.30125,12.73978],[63.30125,12.74228],[63.30147,12.74278],[63.30147,12.77426],[63.30215,12.77576],[63.30192,12.77626],[63.30192,12.81925],[63.29517,12.83424],[63.29517,12.83624],[63.29202,12.84324],[63.2927,12.84324],[63.29337,12.84174],[63.2954,12.84224],[63.29585,12.84424],[63.29607,12.84824],[63.29652,12.84924],[63.29697,12.85024],[63.2972,12.85024],[63.29742,12.85024],[63.29765,12.85024],[63.29787,12.85024],[63.2981,12.85024],[63.29832,12.85024],[63.29855,12.85024],[63.29877,12.85024],[63.299,12.85024],[63.29877,12.85024],[63.29855,12.85024],[63.29832,12.85024],[63.29742,12.85174],[63.29562,12.85623],[63.29562,12.86023],[63.29517,12.86123],[63.29517,12.86623],[63.2927,12.87173],[63.29292,12.87273],[63.29292,12.87823],[63.29247,12.87923],[63.29225,12.88572],[63.29157,12.88772],[63.29067,12.88772],[63.28505,12.90022],[63.2837,12.90022],[63.28325,12.90122],[63.28168,12.90122],[63.28145,12.90172],[63.27898,12.90172],[63.2765,12.90722],[63.27493,12.90822],[63.27403,12.91021],[63.26953,12.91021],[63.2684,12.91121],[63.26188,12.91121],[63.26008,12.91221],[63.25558,12.91221],[63.25378,12.91571],[63.25153,12.91571],[63.24996,12.91771],[63.24928,12.91771],[63.24748,12.91371],[63.24591,12.91221],[63.24456,12.91221],[63.24366,12.91321],[63.24208,12.91271],[63.24163,12.91371],[63.23983,12.91371],[63.23848,12.91271],[63.23691,12.91721],[63.23691,12.91921],[63.23578,12.92221],[63.23286,12.92221],[63.23106,12.92621],[63.23106,12.92921],[63.23061,12.93021],[63.23061,12.93371],[63.23039,12.93421],[63.23039,12.9387],[63.21419,12.97519],[63.21419,13.00968],[63.21374,13.01318],[63.21104,13.02417],[63.21081,13.02717],[63.21036,13.02817],[63.21036,13.03467],[63.21059,13.03517],[63.21059,13.03967],[63.21126,13.04117],[63.21531,13.04117],[63.21711,13.04517]],"walks":[[[63.32127,12.53935],[63.31992,12.53935],[63.31902,12.54135]],[[63.30192,12.77626],[63.30192,12.81925],[63.2954,12.83374]],[[63.29562,12.85623],[63.29562,12.86023],[63.2954,12.86073]],[[63.21126,13.04117],[63.21531,13.04117],[63.21711,13.04517]]],"ice_km":32.5,"walk_km":4.7},"vala-ottsjo":{"line":[[63.14881,12.96523],[63.14566,12.96523],[63.14431,12.96223],[63.14296,12.96173],[63.14116,12.95774],[63.14049,12.95774],[63.14004,12.95674],[63.14116,12.95374],[63.14116,12.95224],[63.14026,12.95024],[63.14004,12.94774],[63.14049,12.93974],[63.13981,12.93674],[63.13981,12.92525],[63.14116,12.92225],[63.14139,12.91875],[63.14184,12.91775],[63.14521,12.91775],[63.15286,12.90076],[63.15646,12.90076],[63.15714,12.89926],[63.15714,12.89626],[63.15781,12.89376],[63.15781,12.89026],[63.17603,12.84978],[63.17603,12.84928],[63.17603,12.84878],[63.17603,12.84828],[63.17603,12.84778],[63.17603,12.84678],[63.17558,12.84528],[63.17558,12.84678],[63.17603,12.84778],[63.17648,12.84878],[63.17716,12.84878],[63.17783,12.85027],[63.17783,12.85127],[63.18008,12.85627],[63.18098,12.85777],[63.18166,12.85777],[63.18301,12.86077],[63.18571,12.86077],[63.18616,12.86177],[63.18728,12.86227],[63.18796,12.86377],[63.18976,12.86377],[63.19111,12.86577],[63.1938,12.86577],[63.19583,12.86127],[63.19628,12.86127],[63.19763,12.85877],[63.19853,12.85827],[63.20055,12.85477],[63.2019,12.85427],[63.20438,12.84778],[63.20528,12.84778],[63.20573,12.84678],[63.20595,12.84278],[63.21,12.83328],[63.21113,12.83328],[63.21225,12.83228],[63.2127,12.82728],[63.21428,12.82378],[63.21495,12.82029],[63.2172,12.81529],[63.21855,12.81329],[63.22013,12.80979],[63.22327,12.80629],[63.22462,12.80629],[63.22687,12.80229],[63.2271,12.79529],[63.22777,12.7938],[63.22845,12.7933],[63.22912,12.7918],[63.23002,12.7918],[63.2307,12.7903],[63.23137,12.7908],[63.23182,12.7888],[63.23182,12.7873],[63.23227,12.7863],[63.23475,12.7858],[63.23542,12.7868],[63.23587,12.7863],[63.23632,12.7843],[63.23565,12.7828],[63.23565,12.7803],[63.2361,12.7783],[63.2361,12.7758],[63.23565,12.7748],[63.23767,12.7708],[63.23767,12.7698],[63.23835,12.7683],[63.2388,12.7683],[63.2406,12.76481],[63.2415,12.76481],[63.2424,12.76231],[63.24375,12.76331],[63.2451,12.76031],[63.24555,12.76031],[63.246,12.75931],[63.24667,12.75931],[63.24735,12.75781],[63.24712,12.75381],[63.24825,12.75081],[63.24825,12.74581],[63.24915,12.74381],[63.24915,12.74131],[63.24892,12.74081],[63.2505,12.73882],[63.25095,12.73782],[63.25095,12.73682],[63.25252,12.73332],[63.25297,12.72582],[63.25477,12.72082],[63.25454,12.71233],[63.25499,12.71133],[63.25499,12.71033],[63.25702,12.70633],[63.25724,12.70383],[63.25679,12.70283],[63.25859,12.69933],[63.25882,12.69783],[63.25882,12.68883],[63.25972,12.68683],[63.25972,12.68484],[63.26152,12.68084],[63.26152,12.67934],[63.26309,12.67584],[63.26332,12.67284],[63.26534,12.67034],[63.26602,12.66884],[63.26602,12.66784],[63.26534,12.66634],[63.26534,12.66234],[63.26579,12.66084],[63.26557,12.65784],[63.26647,12.65635],[63.26669,12.65185],[63.26782,12.64985],[63.26827,12.64735],[63.26917,12.64585],[63.27097,12.64585],[63.27164,12.64435],[63.28626,12.64435],[63.29099,12.65485],[63.29099,12.65585],[63.29211,12.65834],[63.29211,12.65934],[63.29256,12.66034],[63.29279,12.66734],[63.29189,12.66934],[63.29166,12.67484],[63.29054,12.67834],[63.29054,12.67984],[63.29144,12.68184],[63.29144,12.68384],[63.29324,12.68783],[63.29324,12.69133],[63.29436,12.69383],[63.29414,12.69633],[63.29481,12.69683],[63.29594,12.69933],[63.29594,12.70833],[63.29549,12.70933],[63.29549,12.71133],[63.29369,12.71532],[63.29346,12.72132],[63.29391,12.72232],[63.29391,12.72432],[63.29594,12.72932],[63.29684,12.72982],[63.29774,12.73182],[63.29909,12.73182],[63.29931,12.73132],[63.30066,12.73682],[63.30066,12.73882],[63.30134,12.74031],[63.30134,12.7743],[63.30179,12.7753],[63.30156,12.7758],[63.30156,12.81979],[63.29526,12.83378],[63.29526,12.83528],[63.29189,12.84278],[63.29324,12.84278],[63.29369,12.84178],[63.29549,12.84178],[63.29594,12.84478],[63.29594,12.84778],[63.29684,12.84978],[63.29706,12.85027],[63.29729,12.85027],[63.29751,12.85027],[63.29774,12.85027],[63.29796,12.85027],[63.29819,12.85027],[63.29841,12.85027],[63.29886,12.85027],[63.29909,12.84978],[63.29864,12.84978],[63.29819,12.85027],[63.29774,12.85127],[63.29751,12.85127],[63.29571,12.85577],[63.29571,12.85977],[63.29504,12.86177],[63.29504,12.86627],[63.29279,12.87177],[63.29301,12.87277],[63.29301,12.87776],[63.29256,12.87876],[63.29234,12.88576],[63.29144,12.88776],[63.29099,12.88776],[63.28694,12.89676],[63.28626,12.89676],[63.28491,12.89976],[63.28356,12.89976],[63.28311,12.90076],[63.28154,12.90076],[63.28131,12.90126],[63.27929,12.90126],[63.27704,12.90625],[63.27592,12.90775],[63.27524,12.90775],[63.27412,12.91025],[63.27074,12.91025],[63.27052,12.91075],[63.26849,12.91075],[63.26827,12.91125],[63.26174,12.91125],[63.25994,12.91225],[63.25544,12.91225],[63.25387,12.91575],[63.2514,12.91575],[63.25072,12.91625],[63.25005,12.91775],[63.24915,12.91775],[63.2469,12.91275],[63.246,12.91225],[63.24465,12.91225],[63.24352,12.91375],[63.24285,12.91325],[63.24262,12.91375],[63.23992,12.91375],[63.23857,12.91275],[63.237,12.91725],[63.237,12.91925],[63.23587,12.92225],[63.23295,12.92225],[63.23115,12.92625],[63.23115,12.92925],[63.2307,12.93025],[63.23047,12.93724],[63.21383,12.97423],[63.21383,13.01272],[63.21113,13.02371],[63.2109,13.02671],[63.21023,13.02871],[63.21023,13.03321],[63.2118,13.03671],[63.21315,13.03671],[63.21698,13.0452]],"walks":[[[63.14881,12.96523],[63.14566,12.96523],[63.14431,12.96223],[63.14364,12.96223]],[[63.13981,12.93524],[63.13981,12.92725]],[[63.14184,12.91775],[63.14521,12.91775],[63.15264,12.90126]],[[63.15984,12.88576],[63.17581,12.85027]],[[63.30156,12.7758],[63.30156,12.81979],[63.29549,12.83328]],[[63.29571,12.85577],[63.29571,12.85977],[63.29549,12.86027]],[[63.2118,13.03671],[63.21315,13.03671],[63.21698,13.0452]]],"ice_km":50.6,"walk_km":9.7},"ann-loop":{"line":[[63.29458,12.50079],[63.29467,12.50039],[63.29423,12.50223],[63.29443,12.5008],[63.29414,12.50023],[63.2946,12.50055],[63.29366,12.50013],[63.29418,12.50051],[63.289,12.49274],[63.28611,12.48983],[63.28513,12.48836],[63.28389,12.48434],[63.28324,12.48127],[63.28268,12.4746],[63.28136,12.46379],[63.2803,12.45164],[63.27977,12.44997],[63.27855,12.44783],[63.27483,12.44493],[63.27552,12.4485],[63.27942,12.45967],[63.27983,12.46197],[63.27954,12.46744],[63.27829,12.47523],[63.27761,12.47675],[63.27654,12.47809],[63.27569,12.47884],[63.27528,12.47858],[63.27516,12.47733],[63.27529,12.47524],[63.27483,12.47226],[63.2735,12.46765],[63.27317,12.46538],[63.2731,12.46325],[63.27098,12.4564],[63.26991,12.44722],[63.26975,12.44151],[63.26995,12.43706],[63.26973,12.43334],[63.27064,12.42641],[63.27087,12.41632],[63.2714,12.41229],[63.27237,12.40886],[63.2727,12.40679],[63.27259,12.40542],[63.27164,12.40335],[63.27156,12.40255],[63.27245,12.40103],[63.27513,12.39914],[63.27591,12.39759],[63.27555,12.39442],[63.27479,12.39235],[63.27316,12.38956],[63.2713,12.38755],[63.27098,12.38681],[63.27096,12.38613],[63.27156,12.38443],[63.27477,12.38191],[63.27659,12.37888],[63.27745,12.37626],[63.27781,12.37258],[63.27813,12.37109],[63.2791,12.36895],[63.28067,12.36651],[63.28178,12.3628],[63.28219,12.35804],[63.28168,12.35114],[63.28132,12.34942],[63.28074,12.3498],[63.28042,12.35204],[63.27994,12.35165],[63.2797,12.35001],[63.27867,12.35119],[63.27829,12.3528],[63.27753,12.35137],[63.27692,12.35122],[63.27652,12.35032],[63.27622,12.3505],[63.27619,12.34939],[63.27677,12.34765],[63.27606,12.34729],[63.27594,12.34647],[63.27608,12.34611],[63.27594,12.34588],[63.27611,12.34608],[63.27605,12.34714],[63.27672,12.34746],[63.27615,12.34943],[63.27616,12.35038],[63.27661,12.35095],[63.27598,12.35109],[63.27643,12.35156],[63.27602,12.35282],[63.27557,12.35221],[63.27598,12.35285],[63.27642,12.35164],[63.27602,12.35116],[63.27663,12.35101],[63.27645,12.35035],[63.27692,12.35126],[63.27756,12.35144],[63.27765,12.35197],[63.27835,12.35283],[63.27869,12.35122],[63.27973,12.35],[63.27994,12.35155],[63.28042,12.35198],[63.28067,12.35003],[63.2815,12.34879],[63.28316,12.33986],[63.28332,12.33779],[63.28319,12.33578],[63.2828,12.334],[63.28224,12.33298],[63.28154,12.33309],[63.28012,12.33501],[63.27968,12.33423],[63.27968,12.33299],[63.28008,12.33028],[63.2807,12.3288],[63.28141,12.32853],[63.2833,12.32957],[63.28181,12.32851],[63.28107,12.32842],[63.28043,12.32907],[63.28007,12.33015],[63.27966,12.333],[63.27972,12.3346],[63.28022,12.33499],[63.28154,12.3332],[63.28224,12.3331],[63.28287,12.33436],[63.28326,12.33676],[63.2831,12.33966],[63.28165,12.34838],[63.28208,12.35588],[63.28206,12.36047],[63.28185,12.36244],[63.28087,12.36599],[63.27818,12.371],[63.27766,12.37575],[63.27686,12.37838],[63.27528,12.38162],[63.27205,12.38399],[63.27132,12.38513],[63.27102,12.38632],[63.27128,12.38736],[63.27381,12.39103],[63.27501,12.39327],[63.27553,12.3947],[63.27592,12.39744],[63.27551,12.39866],[63.27307,12.40028],[63.27286,12.39997],[63.27162,12.40204],[63.27165,12.40297],[63.27251,12.40505],[63.27267,12.40667],[63.27107,12.41357],[63.27059,12.42698],[63.26976,12.43314],[63.26941,12.43308],[63.26981,12.43413],[63.27054,12.43466],[63.27027,12.43482],[63.26983,12.43952],[63.26959,12.44705],[63.26999,12.45218],[63.27117,12.45909],[63.27128,12.46119],[63.27094,12.46508],[63.26941,12.47122],[63.26955,12.47224],[63.2692,12.47341],[63.26894,12.47658],[63.26941,12.47802],[63.27053,12.47999],[63.27165,12.48035],[63.27661,12.4835],[63.28472,12.49],[63.2883,12.49383],[63.28967,12.49488],[63.28734,12.49309],[63.28406,12.48909],[63.2801,12.48491],[63.2767,12.48231],[63.27239,12.47785],[63.27174,12.47522],[63.27124,12.47047],[63.27057,12.4669],[63.2707,12.46648],[63.2708,12.4669],[63.27127,12.46461],[63.27137,12.4604],[63.27029,12.45303],[63.26989,12.44797],[63.26979,12.44449],[63.26998,12.43308],[63.27078,12.42564],[63.27077,12.41759],[63.27094,12.41487],[63.27274,12.40656],[63.27254,12.40506],[63.27174,12.40336],[63.27162,12.40258],[63.27213,12.40153],[63.27301,12.40073],[63.27526,12.39968],[63.27571,12.3989],[63.27595,12.39783],[63.27574,12.39525],[63.27467,12.39212],[63.27559,12.39502],[63.27589,12.39708],[63.2758,12.39799],[63.2752,12.39882],[63.27257,12.40071],[63.2719,12.40166],[63.27157,12.40269],[63.27247,12.405],[63.27268,12.40646],[63.27154,12.41114],[63.271,12.41462],[63.2708,12.42356],[63.27013,12.43089],[63.26961,12.44305],[63.27011,12.45078],[63.27125,12.45777],[63.27156,12.46107],[63.27064,12.46748],[63.2693,12.47249],[63.26892,12.47646],[63.26939,12.47783],[63.27059,12.4794],[63.27427,12.48054],[63.27875,12.48373],[63.28863,12.49386],[63.29237,12.49853],[63.29447,12.50023]],"walks":[],"ice_km":46.1,"walk_km":0.0},"ann-short":{"line":[[63.31693,12.55196],[63.31666,12.55175],[63.31599,12.55346],[63.31474,12.55999],[63.31435,12.5644],[63.31244,12.5629],[63.31129,12.55928],[63.31068,12.55799],[63.30863,12.5556],[63.30586,12.55779],[63.30328,12.56795],[63.3031,12.5694],[63.30243,12.57099],[63.30184,12.57152],[63.30085,12.57064],[63.29991,12.56794],[63.29912,12.56324],[63.29903,12.56208],[63.29923,12.56201],[63.29933,12.56223],[63.2969,12.56027],[63.29573,12.55838],[63.29489,12.55606],[63.2939,12.55651],[63.29229,12.55831],[63.29137,12.56008],[63.289,12.5672],[63.28813,12.57179],[63.28821,12.57634],[63.28858,12.57735],[63.28841,12.57888],[63.28844,12.58353],[63.28812,12.58569],[63.28765,12.58691],[63.28757,12.58774],[63.28771,12.58785],[63.28693,12.59242],[63.28682,12.59467],[63.28709,12.59324],[63.28697,12.59068],[63.28717,12.58546],[63.28763,12.58185],[63.28726,12.57496],[63.28762,12.57169],[63.28821,12.56939],[63.28897,12.56469],[63.29029,12.56267],[63.29306,12.55522],[63.29328,12.55317],[63.29463,12.54819],[63.29539,12.54661],[63.29601,12.54617],[63.29756,12.5416],[63.29823,12.54072],[63.29871,12.54141],[63.29907,12.54405],[63.29883,12.54701],[63.29884,12.55033],[63.29938,12.56085],[63.29934,12.56169],[63.29864,12.56123],[63.29858,12.56084],[63.29603,12.55823],[63.29544,12.55704],[63.29496,12.55331],[63.29514,12.54914],[63.29533,12.54722],[63.2961,12.54426],[63.29627,12.53965],[63.29292,12.52003],[63.29218,12.51819],[63.29001,12.50915],[63.29146,12.5134],[63.29297,12.52205],[63.29391,12.53002],[63.29427,12.53853],[63.29485,12.54355],[63.29964,12.56532],[63.30125,12.57123],[63.3018,12.57177],[63.30247,12.57132],[63.30326,12.56923],[63.30632,12.56577],[63.30771,12.56274],[63.30911,12.56113],[63.3106,12.55863],[63.31457,12.55499],[63.31606,12.55311],[63.31641,12.55253],[63.31628,12.55197],[63.3169,12.54902],[63.31699,12.54636],[63.31673,12.54691],[63.31654,12.54855],[63.31682,12.55193],[63.3164,12.55037],[63.31613,12.55054],[63.31671,12.55162]],"walks":[],"ice_km":19.8,"walk_km":0.0},"handol-ann":{"line":[[63.25231,12.45015],[63.25591,12.45765],[63.25659,12.45765],[63.25884,12.46265],[63.25861,12.46664],[63.25794,12.46814],[63.25771,12.47014],[63.25771,12.47464],[63.25816,12.47664],[63.25816,12.47914],[63.25951,12.48214],[63.26693,12.48214],[63.30023,12.55611],[63.30045,12.55561],[63.30248,12.55561],[63.3027,12.55511],[63.31238,12.55511],[63.3189,12.54062],[63.3207,12.54062],[63.32138,12.53912]],"walks":[[[63.25231,12.45015],[63.25591,12.45765],[63.25659,12.45765],[63.25771,12.46015]],[[63.30045,12.55561],[63.30248,12.55561]],[[63.3189,12.54062],[63.3207,12.54062],[63.32138,12.53912]]],"ice_km":9.4,"walk_km":1.4},"ottsjon":{"line":[[63.21031,13.15727],[63.20986,13.15577],[63.20986,13.13227],[63.20649,13.12478],[63.20649,13.11978],[63.20604,13.11778],[63.20604,13.11478],[63.20514,13.11178],[63.20514,13.00232],[63.20739,12.99682],[63.20829,12.99033],[63.21031,12.98583],[63.21076,12.98283],[63.21324,12.97733],[63.21706,12.96034],[63.21976,12.95434],[63.21976,12.95284],[63.22224,12.94734],[63.22224,12.94584],[63.23101,12.92635],[63.23101,12.92935],[63.23056,12.93035],[63.23056,12.93385],[63.23033,12.93435],[63.23033,12.93885],[63.21414,12.97533],[63.21414,13.01032],[63.21166,13.02231],[63.21099,13.02431],[63.21076,13.02731],[63.21031,13.02831],[63.21054,13.04031],[63.21121,13.04181],[63.21571,13.04181],[63.21706,13.04481]],"walks":[[[63.21121,13.04181],[63.21571,13.04181],[63.21706,13.04481]]],"ice_km":19.7,"walk_km":0.8},"liten":{"line":[[63.34236,13.47225],[63.34146,13.47225],[63.32436,13.51024],[63.32436,13.53373],[63.32279,13.53773],[63.32279,13.53973],[63.32211,13.54122],[63.32211,13.54322],[63.32166,13.54522],[63.31851,13.55322],[63.31829,13.55872],[63.31514,13.56572],[63.31514,13.57221],[63.31424,13.57471],[63.31424,13.58221],[63.31401,13.58371],[63.31221,13.58821],[63.31154,13.59371],[63.31086,13.5957],[63.31086,13.6022],[63.30861,13.6072],[63.30861,13.65768]],"walks":[[[63.34236,13.47225],[63.34168,13.47225]],[[63.30861,13.6072],[63.30861,13.65768]]],"ice_km":8.3,"walk_km":2.6},"kallsjon":{"line":[[63.4884,13.12265],[63.48862,13.13914],[63.48435,13.14864],[63.48435,13.17363],[63.46635,13.21362],[63.4659,13.21562],[63.46568,13.21812],[63.46568,13.23111],[63.4677,13.23561],[63.46973,13.23611],[63.4704,13.23761],[63.47063,13.23711],[63.47468,13.23711],[63.4749,13.23661],[63.47085,13.23661],[63.47063,13.23711],[63.4704,13.23761],[63.46995,13.23761],[63.46928,13.23911],[63.46793,13.23911],[63.4677,13.23961],[63.4677,13.2526],[63.44858,13.29509],[63.44768,13.29559],[63.42294,13.35057],[63.41956,13.35756],[63.41866,13.35756],[63.41281,13.37006]],"walks":[[[63.4884,13.12265],[63.4884,13.12915]],[[63.47063,13.23711],[63.47468,13.23711],[63.4749,13.23661],[63.47085,13.23661],[63.47063,13.23711]],[[63.41484,13.36606],[63.41281,13.37006]]],"ice_km":16.0,"walk_km":1.7}};
+const store = {
+  get(k, d){ try{ const v = localStorage.getItem('blankis.'+k); return v==null ? d : JSON.parse(v); }catch(e){ return d; } },
+  set(k, v){ try{ localStorage.setItem('blankis.'+k, JSON.stringify(v)); }catch(e){} }
+};
+
+/* ---------- theme ---------- */
+const themeBtn = document.getElementById('theme');
+function applyTheme(t){ if(t) document.documentElement.dataset.theme = t; else delete document.documentElement.dataset.theme; }
+applyTheme(store.get('theme', null));
+themeBtn.onclick = () => {
+  const dark = getComputedStyle(document.documentElement).colorScheme.includes('dark');
+  const t = dark ? 'light' : 'dark'; applyTheme(t); store.set('theme', t); redrawChart(); styleRoutes();
+};
+const css = v => getComputedStyle(document.documentElement).getPropertyValue(v).trim();
+
+/* ---------- sun ---------- */
+const RAD = Math.PI/180;
+function sunEvents(y, m, d, lat, lon){
+  // NOAA-style approximation. Returns UTC ms for sunrise/sunset and civil dawn/dusk.
+  const jd = Date.UTC(y, m-1, d, 12) / 86400000 + 2440587.5;
+  const n = Math.round(jd - 2451545 + 0.0008);
+  const Js = n - lon/360;
+  const M = (357.5291 + 0.98560028*Js) % 360;
+  const C = 1.9148*Math.sin(M*RAD) + 0.02*Math.sin(2*M*RAD) + 0.0003*Math.sin(3*M*RAD);
+  const L = (M + C + 180 + 102.9372) % 360;
+  const Jt = 2451545 + Js + 0.0053*Math.sin(M*RAD) - 0.0069*Math.sin(2*L*RAD);
+  const dec = Math.asin(Math.sin(L*RAD)*Math.sin(23.4397*RAD));
+  const ev = h0 => {
+    const c = (Math.sin(h0*RAD) - Math.sin(lat*RAD)*Math.sin(dec)) / (Math.cos(lat*RAD)*Math.cos(dec));
+    if (c > 1) return null; if (c < -1) return 'always';
+    const w = Math.acos(c)/RAD;
+    const ms = j => (j - 2440587.5) * 86400000;
+    return [ms(Jt - w/360), ms(Jt + w/360)];
+  };
+  return { sun: ev(-0.833), civil: ev(-6) };
+}
+const TZ = 'Europe/Stockholm';
+const minOfDay = ms => { const p = new Intl.DateTimeFormat('en-GB',{timeZone:TZ,hour:'2-digit',minute:'2-digit',hourCycle:'h23'}).formatToParts(new Date(ms)); return +p.find(x=>x.type==='hour').value*60 + +p.find(x=>x.type==='minute').value; };
+const hm = mins => { mins = Math.round(mins); const h = Math.floor(mins/60), m = ((mins%60)+60)%60; return String(h).padStart(2,'0')+':'+String(m).padStart(2,'0'); };
+const dur = mins => { mins = Math.round(mins); const h = Math.floor(mins/60), m = mins%60; return h ? `${h} h ${String(m).padStart(2,'0')} min` : `${m} min`; };
+
+/* ---------- ice model ---------- */
+const stationData = {};
+let curStation = store.get('station', 'storlien');
+async function loadStation(key){
+  if (stationData[key]) return stationData[key];
+  const st = META.stations[key];
+  const url = `https://opendata-download-metobs.smhi.se/api/version/1.0/parameter/${st.param}/station/${st.id}/period/latest-months/data.json`;
+  const j = await (await fetch(url)).json();
+  let days;
+  if (st.param === 2) {
+    days = j.value.map(v => ({ d: v.ref, t: +v.value }));
+  } else {
+    const by = {};
+    for (const v of j.value) {
+      const d = new Intl.DateTimeFormat('sv-SE',{timeZone:TZ}).format(new Date(v.date));
+      (by[d] ||= []).push(+v.value);
+    }
+    days = Object.entries(by).filter(([,a]) => a.length >= 2).map(([d,a]) => ({ d, t: a.reduce((s,x)=>s+x,0)/a.length }));
+  }
+  days.sort((a,b) => a.d < b.d ? -1 : 1);
+  // Frost sum: frost adds, thaw subtracts, floored at zero.
+  let S = 0, since = null;
+  for (const x of days) {
+    const prev = S; S = Math.max(0, S - x.t); x.S = S;
+    if (prev === 0 && S > 0) since = x.d;
+    if (S === 0) since = null;
+  }
+  return stationData[key] = { days, S, since, st };
+}
+const ONSET = 25; // °C·days of frost before shallow lakes start to freeze (rule of thumb)
+function iceRange(S){ const e = Math.max(0, S - ONSET); return [1.7*Math.sqrt(e), 2.7*Math.sqrt(e)]; }
+const fmtDate = d => new Date(d+'T12:00:00Z').toLocaleDateString('en-GB',{day:'numeric',month:'short'});
+
+const segEl = document.getElementById('stseg');
+segEl.innerHTML = Object.entries(META.stations).map(([k,s]) => `<button type="button" role="tab" data-k="${k}">${s.name.split('-')[0]}</button>`).join('');
+segEl.onclick = e => { const b = e.target.closest('button'); if (b) { curStation = b.dataset.k; store.set('station', curStation); renderGauge(); } };
+
+let chartState = null;
+async function renderGauge(){
+  segEl.querySelectorAll('button').forEach(b => { b.classList.toggle('on', b.dataset.k === curStation); b.setAttribute('aria-selected', b.dataset.k === curStation); });
+  const body = document.getElementById('gaugebody');
+  try {
+    const sd = await loadStation(curStation);
+    const [lo, hi] = iceRange(sd.S);
+    const last = sd.days[sd.days.length-1];
+    const head = sd.S < ONSET
+      ? `<div class="big">No ice yet <small>${Math.round(sd.S)} of ~${ONSET} °C·days to freeze-up</small></div>`
+      : `<div class="big">≈ ${Math.round(lo)}–${Math.round(hi)} cm <small>modelled lake ice</small></div>`;
+    body.innerHTML = `${head}
+      <div class="small muted" style="margin-top:4px">Frost sum ${Math.round(sd.S)} °C·days${sd.since && sd.S >= 1 ? ` since ${fmtDate(sd.since)}` : ''}. Last daily mean ${last.t.toFixed(1)} °C (${fmtDate(last.d)}) at ${sd.st.name}, ${sd.st.why}.</div>
+      <div class="chart" id="chart"><svg role="img" aria-label="Daily mean temperature, last 45 days"></svg><div class="tip" id="tip"></div></div>
+      <div class="legend"><span><i style="background:var(--frost)"></i>Below 0 °C (adds ice)</span><span><i style="background:var(--thaw)"></i>Above 0 °C (melts)</span></div>
+      <p class="small muted" style="margin:10px 0 0">Frost sum adds up degrees below zero each day and subtracts thaw days. Shallow tarns usually start to freeze after about ${ONSET} °C·days; big lakes need more. After that, Stefan's law gives thickness ≈ 1.7–2.7 × √(frost sum − ${ONSET}), with the low end for snow-covered ice and the high end for clear, wind-swept ice. It's a hint about when to start looking. It is not a safety check, so test the ice with your pole. Ånnsjön freezes on average around 13 Nov.</p>`;
+    chartState = sd.days.slice(-45);
+    redrawChart();
+  } catch (e) {
+    body.innerHTML = `<span class="muted">Couldn't reach SMHI just now (${e.message}).</span>`;
+  }
+}
+function redrawChart(){
+  const host = document.getElementById('chart'); if (!host || !chartState) return;
+  const svg = host.querySelector('svg'), tip = host.querySelector('#tip');
+  const W = host.clientWidth || 400, H = 120, pad = 4, n = chartState.length;
+  const top = Math.max(3, ...chartState.map(d => d.t)), bot = Math.max(3, ...chartState.map(d => -d.t));
+  const sc = (H - 8)/(top + bot), y0 = 4 + top*sc, bw = (W - pad*2)/n;
+  let s = `<line x1="0" x2="${W}" y1="${y0}" y2="${y0}" stroke="${css('--grid')}" stroke-width="1"/>`;
+  chartState.forEach((d,i) => {
+    const h = Math.max(1.5, Math.abs(d.t)*sc), x = pad + i*bw + 1, w = Math.max(1, bw - 2);
+    const col = d.t < 0 ? css('--frost') : css('--thaw');
+    const y = d.t < 0 ? y0 : y0 - h;
+    s += `<rect x="${x}" y="${y}" width="${w}" height="${h}" rx="${Math.min(3,w/2)}" fill="${col}"/>`;
+    s += `<rect class="hit" data-i="${i}" x="${pad+i*bw}" y="0" width="${bw}" height="${H}" fill="transparent"/>`;
+  });
+  svg.setAttribute('viewBox', `0 0 ${W} ${H}`); svg.innerHTML = s;
+  svg.onpointermove = e => {
+    const r = e.target.closest('.hit'); if (!r) { tip.style.opacity = 0; return; }
+    const d = chartState[+r.dataset.i];
+    tip.textContent = `${fmtDate(d.d)}: ${d.t.toFixed(1)} °C · frost sum ${Math.round(d.S)}`;
+    tip.style.left = (+r.getAttribute('x') + bw/2) + 'px'; tip.style.top = (d.t < 0 ? y0 : y0 - Math.abs(d.t)*sc) + 'px'; tip.style.opacity = 1;
+  };
+  svg.onpointerleave = () => tip.style.opacity = 0;
+}
+addEventListener('resize', () => redrawChart());
+
+/* ---------- routes ---------- */
+const KIND = { train:'Train ⇄ train', 'train-bus':'Train out · bus home', bus:'Bus ⇄ bus', cars:'Two cars', loop:'Loop' };
+const STATUS = { skated:'You skated it', proposed:'Proposed', expedition:'Expedition' };
+const ICON = { train:'🚆', bus:'🚌', car:'🚗', walk:'🥾' };
+const PACE = [
+  { k:'black', label:'Black ice, about 14 km/h', v:14, why:'Your Ånnsjön loop, 20 Nov 2022' },
+  { k:'thin', label:'Thin snow on ice, about 8 km/h', v:8, why:'Your Enafors–Duved day, 3 Dec 2022' },
+  { k:'rough', label:'Snowy or rough, about 5 km/h', v:5, why:'Expect a lot of walking' }
+];
+const FILTERS = [['all','All'],['pt','Public transport'],['cars','Two cars'],['loop','Loops'],['skated','Skated']];
+let filter = store.get('filter', 'all');
+let openId = store.get('open', null);
+const plan = store.get('plan', {});
+
+function routeKm(id){ const g = GEO[id]; return { ice: g.ice_km, walk: g.walk_km, total: g.ice_km + g.walk_km }; }
+function passes(r){
+  if (filter === 'all') return true;
+  if (filter === 'pt') return ['train','train-bus','bus'].includes(r.kind);
+  if (filter === 'skated') return r.status === 'skated';
+  return r.kind === filter;
+}
+const fEl = document.getElementById('filters');
+function renderFilters(){
+  fEl.innerHTML = FILTERS.map(([k,l]) => `<button type="button" data-f="${k}" class="${k===filter?'on':''}" aria-pressed="${k===filter}">${l}</button>`).join('');
+}
+fEl.onclick = e => { const b = e.target.closest('button'); if (!b) return; filter = b.dataset.f; store.set('filter', filter); renderFilters(); renderRoutes(); styleRoutes(); };
+
+function legs(list){ return `<ul class="legs">${list.map(l => `<li><span class="ic" aria-hidden="true">${ICON[l.mode]||'•'}</span><span>${l.text}</span></li>`).join('')}</ul>`; }
+
+function renderRoutes(){
+  const el = document.getElementById('routes');
+  el.innerHTML = META.routes.filter(passes).map(r => {
+    const km = routeKm(r.id);
+    return `<article class="route ${r.id===openId?'open':''}" id="r-${r.id}">
+      <button type="button" aria-expanded="${r.id===openId}" data-id="${r.id}">
+        <span class="rname">${r.name}</span>
+        <span class="rkm">${Math.round(km.total)} km<small>${km.walk >= 0.5 ? `${km.walk.toFixed(1)} km on foot` : 'all on ice'}</small></span>
+        <span class="rsub">${r.sub}</span>
+        <span class="pills"><span class="pill">${KIND[r.kind]}</span><span class="pill ${r.status}">${STATUS[r.status]}</span></span>
+      </button>
+      <div class="detail">${r.id===openId ? detailHTML(r) : ''}</div>
+    </article>`;
+  }).join('') || `<p class="muted">No routes match.</p>`;
+  if (openId) wirePlanner(META.routes.find(r => r.id === openId));
+}
+function detailHTML(r){
+  const p = plan[r.id] || {};
+  const today = new Intl.DateTimeFormat('sv-SE',{timeZone:TZ}).format(new Date());
+  return `
+    ${r.yours ? `<div class="yours">${r.yours}${r.strava ? ` <a href="https://www.strava.com/activities/${r.strava}" target="_blank" rel="noopener">Strava ↗</a>` : ''}</div>` : ''}
+    <div class="chain">${r.chain.map(c => `<span class="${/walk/.test(c)?'w':''}">${c}</span>`).join('')}</div>
+    <h3>Getting there</h3>${legs(r.out)}
+    <h3>Getting home</h3>${legs(r.back)}
+    <div class="plan">
+      <div class="row">
+        <label>Date<input type="date" data-p="date" value="${p.date || today}"></label>
+        <label>On the ice at<input type="time" data-p="start" value="${p.start || '09:30'}" step="300"></label>
+        <label>Ice<select data-p="pace">${PACE.map(x => `<option value="${x.k}" ${ (p.pace || (r.status==='skated' && r.id==='enafors-duved' ? 'thin' : 'black')) === x.k ? 'selected' : ''}>${x.label}</option>`).join('')}</select></label>
+      </div>
+      <div class="out"></div>
+    </div>
+    <h3>Watch out</h3><ul class="hz">${r.hazards.map(h => `<li>${h}</li>`).join('')}</ul>
+    ${r.note ? `<p class="note">${r.note}</p>` : ''}`;
+}
+function wirePlanner(r){
+  const card = document.getElementById('r-'+r.id); if (!card) return;
+  const box = card.querySelector('.plan');
+  const update = () => {
+    const vals = {}; box.querySelectorAll('[data-p]').forEach(i => vals[i.dataset.p] = i.value);
+    plan[r.id] = vals; store.set('plan', plan);
+    box.querySelector('.out').innerHTML = planHTML(r, vals);
+  };
+  box.addEventListener('input', update); update();
+}
+function planHTML(r, v){
+  const km = routeKm(r.id), pace = PACE.find(x => x.k === v.pace) || PACE[0];
+  const [y,m,d] = (v.date || '').split('-').map(Number); if (!y) return '';
+  const ll = GEO[r.id].line[Math.floor(GEO[r.id].line.length/2)];
+  const ev = sunEvents(y, m, d, ll[0], ll[1]);
+  if (!ev.sun || ev.sun === 'always') return `<p class="small muted">No ordinary sunrise or sunset that day.</p>`;
+  const rise = minOfDay(ev.sun[0]), set = minOfDay(ev.sun[1]);
+  const dawn = minOfDay(ev.civil[0]), dusk = minOfDay(ev.civil[1]);
+  const [sh, sm] = (v.start || '09:30').split(':').map(Number); const start = sh*60 + sm;
+  const skate = km.ice / pace.v * 60, walk = km.walk / 3.5 * 60, breaks = Math.floor(skate/60) * 10;
+  const total = skate + walk + breaks, end = start + total;
+  const latest = dusk - total;
+  const ok = end <= dusk;
+  const lo = Math.min(dawn, start) - 30, hi = Math.max(dusk, end) + 30, span = hi - lo, pct = t => ((t-lo)/span*100).toFixed(2)+'%';
+  return `
+    <ul class="tl">
+      <li><b>${hm(dawn)}</b><span>Civil dawn · sunrise ${hm(rise)}</span></li>
+      <li><b>${hm(start)}</b><span>On the ice</span></li>
+      <li><b>${hm(end)}</b><span>Off the ice: ${dur(skate)} skating at ${pace.v} km/h${walk ? ` + ${dur(walk)} on foot` : ''}${breaks ? ` + ${breaks} min breaks` : ''}</span></li>
+      <li><b>${hm(dusk)}</b><span>Civil dusk · sunset ${hm(set)}</span></li>
+    </ul>
+    <div class="daybar" aria-hidden="true">
+      <div class="civil" style="left:${pct(dawn)};width:${((dusk-dawn)/span*100).toFixed(2)}%"></div>
+      <div class="light" style="left:${pct(rise)};width:${((set-rise)/span*100).toFixed(2)}%"></div>
+      <div class="trip" style="left:${pct(start)};width:${(total/span*100).toFixed(2)}%"></div>
+    </div>
+    <div class="dayaxis"><span>${hm(lo)}</span><span>${hm(hi)}</span></div>
+    <div class="verdict ${ok?'ok':'bad'}"><span class="dot" aria-hidden="true">${ok?'✓':'!'}</span><span>${ok
+      ? `Off the ice ${dur(dusk-end)} before dusk. Latest start ${hm(latest)}.`
+      : `${dur(end-dusk)} after dusk. ${latest > dawn ? `Start by ${hm(latest)}, or pick faster ice.` : 'This won’t fit in daylight on that date, so choose a later season or a shorter route.'}`}</span></div>
+    <p class="small muted" style="margin:8px 0 0">${pace.why}. Walking is counted at 3.5 km/h, plus 10 min of breaks per hour on the ice.</p>`;
+}
+document.getElementById('routes').addEventListener('click', e => {
+  const b = e.target.closest('.route>button'); if (!b) return;
+  const id = b.dataset.id; openId = openId === id ? null : id; store.set('open', openId);
+  renderRoutes(); styleRoutes(true);
+  if (openId) document.getElementById('r-'+openId).scrollIntoView({block:'nearest', behavior:'smooth'});
+});
+
+/* ---------- map ---------- */
+const map = L.map('map', { zoomControl: true, attributionControl: true }).setView([63.30, 12.85], 9);
+const topo = L.tileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', { maxZoom: 16, attribution: '© OpenStreetMap, © OpenTopoMap (CC-BY-SA)' });
+const osm = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom: 18, attribution: '© OpenStreetMap contributors' });
+topo.addTo(map);
+document.getElementById('mTopo').onclick = () => { map.removeLayer(osm); topo.addTo(map); mTopo.classList.add('on'); mOsm.classList.remove('on'); };
+document.getElementById('mOsm').onclick = () => { map.removeLayer(topo); osm.addTo(map); mOsm.classList.add('on'); mTopo.classList.remove('on'); };
+function chaikin(pts, it = 2){
+  for (let k = 0; k < it; k++) {
+    const o = [pts[0]];
+    for (let i = 0; i < pts.length-1; i++) { const [a,b] = [pts[i], pts[i+1]];
+      o.push([a[0]*.75+b[0]*.25, a[1]*.75+b[1]*.25], [a[0]*.25+b[0]*.75, a[1]*.25+b[1]*.75]); }
+    o.push(pts[pts.length-1]); pts = o;
+  }
+  return pts;
+}
+const layers = {};
+for (const r of META.routes) {
+  const g = GEO[r.id];
+  const line = r.strava ? g.line : chaikin(g.line);
+  const halo = L.polyline(line, { weight: 9, opacity: 0, interactive: true });
+  const casing = L.polyline(line, { weight: 6, color: '#fff', opacity: .85, interactive: false });
+  const main = L.polyline(line, { weight: 3, interactive: false });
+  const walks = g.walks.map(w => L.polyline(w, { weight: 3, dashArray: '2 7', lineCap: 'round', interactive: false }));
+  const pins = r.access.map(a => L.circleMarker(a.ll, { radius: 6, weight: 2 }).bindTooltip(a.name));
+  const grp = L.featureGroup([casing, main, ...walks, halo]).addTo(map);
+  halo.on('click', () => { openId = r.id; store.set('open', openId); if (!passes(r)) { filter = 'all'; renderFilters(); } renderRoutes(); styleRoutes(true); document.getElementById('r-'+r.id)?.scrollIntoView({block:'nearest',behavior:'smooth'}); });
+  halo.bindTooltip(r.name, { sticky: true });
+  layers[r.id] = { grp, casing, main, walks, pins: L.featureGroup(pins) };
+}
+function styleRoutes(fit){
+  const acc = '#1f63e0';
+  for (const r of META.routes) {
+    const L_ = layers[r.id], on = r.id === openId, vis = passes(r);
+    const op = !vis ? .15 : (openId && !on ? .45 : 1);
+    L_.casing.setStyle({ weight: on ? 9 : 6, opacity: op * .9 });
+    L_.main.setStyle({ color: on ? acc : '#3d5f99', weight: on ? 5 : 3, opacity: op });
+    L_.walks.forEach(w => w.setStyle({ color: '#111', weight: on ? 4 : 3, opacity: op }));
+    if (on) { L_.grp.bringToFront(); L_.pins.addTo(map);
+      L_.pins.eachLayer(p => p.setStyle({ color: '#fff', fillColor: acc, fillOpacity: 1 })); }
+    else map.removeLayer(L_.pins);
+  }
+  if (fit && openId) map.fitBounds(layers[openId].grp.getBounds(), { padding: [30, 30] });
+}
+
+renderFilters(); renderRoutes(); styleRoutes(!!openId); renderGauge();
+if (!openId) map.fitBounds(L.featureGroup(Object.values(layers).map(l => l.grp)).getBounds(), { padding: [20, 20] });
+</script>
+</body>
+</html>

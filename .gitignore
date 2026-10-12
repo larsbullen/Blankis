@@ -1,0 +1,4 @@
+research/
+_*.html
+.DS_Store
+__pycache__/
