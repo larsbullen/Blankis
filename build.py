@@ -28,9 +28,13 @@ for r in meta['routes']:
             i, j = sorted((nearest(line, sp['from']), nearest(line, sp['to'])))
             sp['line'] = line[i:j + 1]
             sp['km'] = round(seg_km(sp['line']), 1)
+    risky = [sp['line'] for sp in r['spots'] if sp['type'] in ('maybe', 'slow') and 'line' in sp]
+    def inside_risky(w):
+        mid = w[len(w) // 2]
+        return any(seg_km([mid, q]) < 0.15 for line in risky for q in line)
     for w in geo[r['id']]['walks']:
         km = seg_km(w)
-        if km >= 0.5:
+        if km >= 0.5 and not inside_risky(w):
             r['spots'].append({'type': 'walk', 'name': 'On foot', 'line': w, 'km': round(km, 1),
                                'text': 'No ice mapped here, so this is walking (to or from the ice, or between lakes).'})
     r['km_walk'] = round(sum(sp.get('km', 0) for sp in r['spots'] if sp['type'] == 'walk'), 1)

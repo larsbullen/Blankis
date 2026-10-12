@@ -81,7 +81,8 @@ h1 span{color:var(--accent)}
 .rkm small{display:block;font-size:12px;color:var(--text-2);font-weight:500}
 .pills{grid-column:1/-1;display:flex;gap:6px;flex-wrap:wrap;margin-top:6px}
 .pill{font-size:11.5px;font-weight:650;border-radius:999px;padding:3px 9px;background:var(--surface-2);color:var(--text-2)}
-.pill.skated{background:var(--accent-soft);color:var(--accent-text)}
+.pill.skated,.pill.reported{background:var(--accent-soft);color:var(--accent-text)}
+.pill.untested{background:transparent;box-shadow:inset 0 0 0 1px var(--line)}
 .pill.expedition{background:#111;color:#fff}
 :root[data-theme="dark"] .pill.expedition{background:#f5f5f4;color:#111}
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .pill.expedition{background:#f5f5f4;color:#111}}
@@ -340,27 +341,27 @@ addEventListener('resize', () => redrawChart());
 
 /* ---------- routes ---------- */
 const KIND = { train:'Train ⇄ train', 'train-bus':'Train out · bus home', bus:'Bus ⇄ bus', cars:'Two cars', loop:'Loop' };
-const STATUS = { skated:'You skated it', proposed:'Proposed', expedition:'Expedition' };
+const STATUS = { skated:'You skated it', reported:'Others skated it', proposed:'Proposed', untested:'No reports yet', expedition:'Expedition' };
 const ICON = { train:'🚆', bus:'🚌', car:'🚗', walk:'🥾' };
 const PACE = [
   { k:'black', label:'Black ice, about 14 km/h', v:14, why:'Your Ånnsjön loop, 20 Nov 2022' },
   { k:'thin', label:'Thin snow on ice, about 8 km/h', v:8, why:'Your Enafors–Duved day, 3 Dec 2022' },
   { k:'rough', label:'Snowy or rough, about 5 km/h', v:5, why:'Expect a lot of walking' }
 ];
-const FILTERS = [['all','All'],['pt','Public transport'],['cars','Two cars'],['loop','Loops'],['skated','Skated']];
+const FILTERS = [['all','All'],['pt','Public transport'],['cars','Two cars'],['loop','Loops'],['skated','Skated by someone']];
 let filter = store.get('filter', 'all');
 let openId = store.get('open', null);
 const plan = store.get('plan', {});
 
 function routeKm(id){
   const g = GEO[id], r = META.routes.find(x => x.id === id);
-  const total = g.ice_km + g.walk_km, walk = Math.max(g.walk_km, r.km_walk), maybe = r.km_maybe;
+  const total = g.ice_km + g.walk_km, walk = r.km_walk, maybe = r.km_maybe;
   return { total, walk, maybe, skate: Math.max(0, total - walk - maybe) };
 }
 function passes(r){
   if (filter === 'all') return true;
   if (filter === 'pt') return ['train','train-bus','bus'].includes(r.kind);
-  if (filter === 'skated') return r.status === 'skated';
+  if (filter === 'skated') return r.status === 'skated' || r.status === 'reported';
   return r.kind === filter;
 }
 const fEl = document.getElementById('filters');
@@ -387,7 +388,7 @@ function renderRoutes(){
         <span class="rname">${r.name}</span>
         <span class="rkm">${Math.round(km.total)} km<small>${km.walk >= 0.5 ? `${km.walk.toFixed(1)} km on foot` : 'all on ice'}${km.maybe >= 0.5 ? `<br><span class="mk">${Math.round(km.maybe)} km might be walking</span>` : ''}</small></span>
         <span class="rsub">${r.sub}</span>
-        <span class="pills"><span class="pill">${KIND[r.kind]}</span><span class="pill ${r.status}">${STATUS[r.status]}</span></span>
+        <span class="pills"><span class="pill">${KIND[r.kind]}</span><span class="pill ${r.status}">${STATUS[r.status]}</span>${r.freeze ? `<span class="pill">Freezes ~${r.freeze}</span>` : ''}</span>
       </button>
       <div class="detail">${r.id===openId ? detailHTML(r) : ''}</div>
     </article>`;

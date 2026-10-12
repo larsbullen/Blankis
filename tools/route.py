@@ -12,7 +12,7 @@ from skimage.draw import polygon as draw_poly
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 R = os.path.join(ROOT, 'research')
-lakes = json.load(open(f'{R}/osm/lakes_geom.json'))['elements']
+lakes = json.load(open(f'{R}/osm/water_all.json'))['elements']
 streams = json.load(open(f'{R}/osm/streams.json'))['elements']
 tracks = json.load(open(f'{R}/strava/tracks.json'))
 
@@ -26,17 +26,20 @@ def ll(x, y): return (y / KY, x / KX)
 def lake_polys():
     out = []
     for e in lakes:
-        if e['type'] == 'way':
-            g = [xy(p['lat'], p['lon']) for p in e['geometry']]
-            if len(g) >= 4: out.append(Polygon(g).buffer(0))
-        else:
-            outer = [LineString([xy(p['lat'], p['lon']) for p in m['geometry']]) for m in e['members'] if m.get('role') == 'outer' and m.get('geometry')]
-            inner = [LineString([xy(p['lat'], p['lon']) for p in m['geometry']]) for m in e['members'] if m.get('role') == 'inner' and m.get('geometry')]
-            o = unary_union(list(polygonize(unary_union(outer))))
-            if inner:
-                o = o.difference(unary_union(list(polygonize(unary_union(inner)))))
-            out.append(o)
-    return unary_union(out)
+      try:
+          if e['type'] == 'way':
+              g = [xy(p['lat'], p['lon']) for p in e['geometry']]
+              if len(g) >= 4: out.append(Polygon(g).buffer(0))
+          else:
+              outer = [LineString([xy(p['lat'], p['lon']) for p in m['geometry']]) for m in e['members'] if m.get('role') == 'outer' and m.get('geometry')]
+              inner = [LineString([xy(p['lat'], p['lon']) for p in m['geometry']]) for m in e['members'] if m.get('role') == 'inner' and m.get('geometry')]
+              o = unary_union(list(polygonize(unary_union(outer))))
+              if inner:
+                  o = o.difference(unary_union(list(polygonize(unary_union(inner)))))
+              out.append(o)
+      except Exception:
+        pass
+    return unary_union([o for o in out if o.is_valid])
 
 WATER = lake_polys()
 STREAMS = unary_union([LineString([xy(p['lat'], p['lon']) for p in e['geometry']]).buffer(0.03) for e in streams])
@@ -107,6 +110,15 @@ ROUTES = {
     'vala-ottsjo': lambda: route([(63.1487, 12.9653), (63.1572, 12.8992), (63.1756, 12.8455), (63.2717, 12.6441), (63.2910, 12.6547), (63.2996, 12.7319), (63.2920, 12.8430), (63.2990, 12.8500), (63.2930, 12.8750), (63.2850, 12.9000), (63.2740, 12.9104), (63.2311, 12.9261), (63.2170, 13.0450)]),
     'ottsjon': lambda: route([(63.2102, 13.1571), (63.2311, 12.9261), (63.2170, 13.0450)]),
     'liten': lambda: route([(63.3424, 13.4720), (63.3085, 13.6577)]),
+    'ann-duved': lambda: route([(63.3213, 12.5391), (63.2910, 12.6547), (63.2996, 12.7319), (63.3137, 12.7871), (63.3207, 12.8250), (63.3327, 12.8229), (63.3528, 12.8682), (63.3667, 12.8783), (63.3900, 12.9176)]),
+    'juvuln': lambda: route([(63.7013, 12.9590), (63.7295, 13.1988), (63.6752, 13.3582)]),
+    'anjan': lambda: route([(63.7388, 12.4714), (63.7294, 12.5333), (63.7051, 12.6496), (63.6818, 12.8090)]),
+    'aresjon': lambda: route([(63.3987, 13.0765), (63.3614, 13.1762)]),
+    'gevsjon': lambda: route([(63.3708, 12.6241), (63.3600, 12.6842), (63.3723, 12.6970), (63.3850, 12.6600), (63.3708, 12.6241)]),
+    'kallsjon-length': lambda: route([(63.4939, 13.1243), (63.5566, 13.0249), (63.5921, 13.0789), (63.6418, 12.8850), (63.7021, 12.9469)]),
+    'klocka-loop': lambda: route([(63.2968, 12.4908), (63.2724, 12.4776), (63.2836, 12.3305), (63.2724, 12.4776), (63.2500, 12.5600), (63.2350, 12.5800), (63.2968, 12.4908)]),
+    'helgesjon': lambda: route([(63.3620, 13.2645), (63.3720, 13.2280), (63.3400, 13.3020), (63.3620, 13.2645)]),
+    'medstugusjon': lambda: route([(63.5549, 12.3710), (63.5350, 12.3847), (63.5567, 12.3470), (63.5549, 12.3710)]),
     'kallsjon': lambda: route([(63.4885, 13.1224), (63.4749, 13.2364), (63.4127, 13.3701)]),
 }
 

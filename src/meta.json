@@ -135,7 +135,8 @@
           "r": 500,
           "text": "Often open water with swans where Ånnsjön drains east. Keep well clear."
         }
-      ]
+      ],
+      "freeze": "13 Nov (Ånnsjön)"
     },
     {
       "id": "enafors-ann",
@@ -208,6 +209,184 @@
           ],
           "r": 500,
           "text": "Often open water with swans where Ånnsjön drains east. Keep well clear."
+        }
+      ],
+      "freeze": "13 Nov (Ånnsjön)"
+    },
+    {
+      "id": "ann-duved",
+      "name": "Ånn → Duved",
+      "sub": "Your tarn chain without the Enan, train at both ends",
+      "kind": "train",
+      "status": "proposed",
+      "chain": [
+        "Ånnsjön",
+        "Kärrån",
+        "Kösjön",
+        "Rängen",
+        "Moen",
+        "Greningen"
+      ],
+      "station": "storlien",
+      "freeze": "13 Nov (Ånnsjön)",
+      "out": [
+        {
+          "mode": "train",
+          "text": "Norrtåg westbound to <b>Ånn</b> in the morning (2 trains a day)."
+        },
+        {
+          "mode": "bus",
+          "text": "Weekdays: bus <b>571</b> from Duved at 06:00 or 13:50 to Ånn."
+        }
+      ],
+      "back": [
+        {
+          "mode": "walk",
+          "text": "Leave Greningen and walk about 3 km down into <b>Duved</b>."
+        },
+        {
+          "mode": "train",
+          "text": "Norrtåg from Duved (about 4 a day) or bus <b>157</b> roughly every hour."
+        }
+      ],
+      "access": [
+        {
+          "name": "Ånn station",
+          "ll": [
+            63.3213,
+            12.5391
+          ],
+          "type": "train"
+        },
+        {
+          "name": "Duved station",
+          "ll": [
+            63.39,
+            12.9176
+          ],
+          "type": "train"
+        }
+      ],
+      "hazards": [
+        "Leave Ånn heading south-east along the shore, and stay well away from the outlet east of Ånn.",
+        "Kärrån and the gaps between the tarns were slow in 2022: some skating, some walking.",
+        "Greningen is a regulated reservoir, so expect cracks along the shore."
+      ],
+      "note": "This is the same chain you skated in 2022, minus the first 21 km. With train stations at both ends, you don't need the early train to Enafors.",
+      "spots": [
+        {
+          "type": "open",
+          "name": "Ånnsjön outlet at Ånn",
+          "at": [
+            63.3138,
+            12.6051
+          ],
+          "r": 500,
+          "text": "Often open water with swans where Ånnsjön drains east. Keep well clear."
+        },
+        {
+          "type": "slow",
+          "name": "Kärrån",
+          "from": [
+            63.29,
+            12.6507
+          ],
+          "to": [
+            63.2994,
+            12.7263
+          ],
+          "text": "Slow in 2022: 2–4 km/h, a mix of skating on poor stream ice and walking."
+        },
+        {
+          "type": "slow",
+          "name": "Kösjön → Rängen → Moen",
+          "from": [
+            63.3061,
+            12.7702
+          ],
+          "to": [
+            63.3266,
+            12.8295
+          ],
+          "text": "Slow in 2022 (3–5 km/h): skating through the small tarns, with walking between them."
+        },
+        {
+          "type": "slow",
+          "name": "Moen → Greningen",
+          "from": [
+            63.3364,
+            12.8165
+          ],
+          "to": [
+            63.3667,
+            12.8783
+          ],
+          "text": "Slow in 2022 (2–5 km/h): poor ice and some walking."
+        }
+      ]
+    },
+    {
+      "id": "klocka-loop",
+      "name": "Klocka loop: Enan and south Ånnsjön",
+      "sub": "An SLSK club tour, 23 Dec 2025 (42 km)",
+      "kind": "loop",
+      "status": "reported",
+      "chain": [
+        "Ånnsjön",
+        "Enan to Enafors",
+        "Enan back",
+        "south Ånnsjön"
+      ],
+      "station": "storlien",
+      "freeze": "13 Nov (Ånnsjön)",
+      "out": [
+        {
+          "mode": "car",
+          "text": "Park at <b>Klocka</b> on the north-west shore of Ånnsjön (about 30 min from Åre)."
+        }
+      ],
+      "back": [
+        {
+          "mode": "car",
+          "text": "Back to Klocka. It's a loop, so you only need one car."
+        }
+      ],
+      "access": [
+        {
+          "name": "Klocka",
+          "ll": [
+            63.2968,
+            12.4908
+          ],
+          "type": "car"
+        }
+      ],
+      "hazards": [
+        "Keep out from the sandbanks at the Enan mouth.",
+        "The Enan is river ice, so it's thinner over the current and on the outside of bends.",
+        "South of Granön and Järpön, Ånnsjön freezes later than the north part."
+      ],
+      "note": "In Dec 2025, SLSK and Friluftsfrämjandet went Klocka → Enan mouth → Enafors → a bit up Ingolvån → south Ånnsjön → Klocka, 42 km (<a href=\"https://www.utsidan.se/blogs/pers-turer/en-enan-a-n-annsjon-tur.htm\" target=\"_blank\" rel=\"noopener\">trip report</a>). One utsidan poster also suggests Klocka as the place to start when you're unsure about the ice.",
+      "spots": [
+        {
+          "type": "maybe",
+          "name": "Enan mouth sandbanks",
+          "at": [
+            63.2724,
+            12.4776
+          ],
+          "r": 350,
+          "text": "Shallow and sandy. Ice can be poor here, so keep out from the banks."
+        },
+        {
+          "type": "open",
+          "name": "Enanfors waterfall",
+          "at": [
+            63.2878,
+            12.3271
+          ],
+          "r": 150,
+          "text": "Turn around below the falls by Enafors."
         }
       ]
     },
@@ -314,7 +493,8 @@
           "r": 450,
           "text": "A shallow ford (under 40 cm deep) across the lake from Ottsjö village. Ice may be weak here. Position approximate, unverified."
         }
-      ]
+      ],
+      "freeze": "13–16 Nov"
     },
     {
       "id": "vala-ottsjo",
@@ -430,7 +610,8 @@
           ],
           "text": "A stream falling about 6 km to Ottsjön. It is unknown whether it can be skated, so be ready to walk all of it."
         }
-      ]
+      ],
+      "freeze": "tarns early, Ånnsjön 13 Nov"
     },
     {
       "id": "ann-loop",
@@ -491,7 +672,8 @@
           "r": 500,
           "text": "Often open water with swans where Ånnsjön drains east. Keep well clear."
         }
-      ]
+      ],
+      "freeze": "13 Nov"
     },
     {
       "id": "ann-short",
@@ -542,7 +724,8 @@
           "r": 500,
           "text": "Often open water with swans where Ånnsjön drains east. Keep well clear."
         }
-      ]
+      ],
+      "freeze": "13 Nov"
     },
     {
       "id": "handol-ann",
@@ -604,14 +787,15 @@
           "r": 500,
           "text": "Often open water with swans where Ånnsjön drains east. Keep well clear."
         }
-      ]
+      ],
+      "freeze": "13 Nov (south part later)"
     },
     {
       "id": "ottsjon",
       "name": "Ottsjön end to end",
       "sub": "Sjöändan → west end → Ottsjö",
       "kind": "cars",
-      "status": "proposed",
+      "status": "reported",
       "yours": "You did a short skate at Sjöändan on 26 Nov 2022.",
       "strava": "8171086845",
       "chain": [
@@ -688,7 +872,9 @@
           "r": 450,
           "text": "A shallow ford across the lake from Ottsjö village. Ice may be weak here. Position approximate, unverified."
         }
-      ]
+      ],
+      "freeze": "16 Nov",
+      "note": "SLSK ran an early-December club tour here with about 23 skaters. Their tips: put in at the boat harbour just after ICA Ottsjö, and \"passa för sand vid ridvadet\" (SLSK Iskontakten)."
     },
     {
       "id": "liten",
@@ -750,14 +936,15 @@
           "r": 900,
           "text": "Outflow from the Kallsjön power station and the Indalsälven both enter the west end. Expect open or thin water. Position approximate."
         }
-      ]
+      ],
+      "freeze": "23 Nov"
     },
     {
       "id": "kallsjon",
       "name": "Huså → Kall → Bonäset",
       "sub": "The south end of Kallsjön",
       "kind": "cars",
-      "status": "proposed",
+      "status": "reported",
       "chain": [
         "Kallsjön"
       ],
@@ -806,9 +993,485 @@
       ],
       "hazards": [
         "Kallsjön is a deep (134 m), regulated reservoir. It freezes late, and you get cracks and slush along the shores.",
-        "It's very exposed to wind, so watch out for open leads and drifting snow.",
-        "No skating reports were found for Kallsjön, so treat it as unknown ice."
+        "It's very exposed to wind, so watch out for open leads and drifting snow."
       ],
+      "spots": [],
+      "freeze": "7 Dec",
+      "note": "Reported: Kall–Huså, about 18 km on \"30 cm kärnis\", 7 Feb 2014 (Dan Fritzon, SLSK Iskontakten)."
+    },
+    {
+      "id": "kallsjon-length",
+      "name": "Kallsjön lengthwise",
+      "sub": "Huså → Kall-Rör → Konäs → Kallsedet",
+      "kind": "cars",
+      "status": "reported",
+      "chain": [
+        "Kallsjön"
+      ],
+      "station": "morsil",
+      "freeze": "7 Dec (east) to 1 Jan (north)",
+      "out": [
+        {
+          "mode": "car",
+          "text": "Two cars: leave one at <b>Kallsedet</b> (about 70 min from Åre) and drive to <b>Huså</b> (about 30 min). You can shorten it by ending at Konäs or Skagen."
+        },
+        {
+          "mode": "bus",
+          "text": "Weekdays: bus <b>551</b> runs Kallsedet–Konäs–Kall-Rör–Kall–Järpen on a school-run timetable."
+        }
+      ],
+      "back": [
+        {
+          "mode": "car",
+          "text": "Collect the car at Kallsedet."
+        }
+      ],
+      "access": [
+        {
+          "name": "Huså slipway",
+          "ll": [
+            63.4939,
+            13.1243
+          ],
+          "type": "car"
+        },
+        {
+          "name": "Kall-Rör",
+          "ll": [
+            63.5566,
+            13.0249
+          ],
+          "type": "car"
+        },
+        {
+          "name": "Konäs (551)",
+          "ll": [
+            63.5921,
+            13.0789
+          ],
+          "type": "bus"
+        },
+        {
+          "name": "Kallsedet",
+          "ll": [
+            63.7021,
+            12.9469
+          ],
+          "type": "car"
+        }
+      ],
+      "hazards": [
+        "Kallsjön is regulated, which leaves broken slabs and cracks along the shores. Get on and off where it looks calm.",
+        "The north part freezes late, often not until January, so plan this for February or March.",
+        "Juvuln's power station empties into the very north tip at Kallsedet. Expect thin or open water there and finish on the shore before the outlet (unverified).",
+        "It's a huge, open lake, so wind decides the day."
+      ],
+      "note": "Reports: <b>Per Sonnvik</b> skated 55 km in a loop from Skagen on 15 Feb 2025, on smooth ice that was thinner with many cracks at Skagen (<a href=\"https://www.utsidan.se/blogs/pers-turer/skridskor-pa-kallsjon-250215.htm\" target=\"_blank\" rel=\"noopener\">trip report</a>). On 29 Feb 2020 someone skated about 30 km north from Huså on 10 cm of clear ice (SLSK Iskontakten).",
+      "spots": [
+        {
+          "type": "open",
+          "name": "Juvuln outflow, Kallsedet",
+          "at": [
+            63.7013,
+            12.959
+          ],
+          "r": 500,
+          "text": "Outflow from Juvelns power station into the north tip. Probably open or thin water (unverified)."
+        },
+        {
+          "type": "maybe",
+          "name": "Anjan outflow, NW arm",
+          "at": [
+            63.6705,
+            12.8565
+          ],
+          "r": 500,
+          "text": "Water from Anjan enters near Sundet. Keep clear (unverified)."
+        }
+      ]
+    },
+    {
+      "id": "juvuln",
+      "name": "Juvuln end to end",
+      "sub": "Kallsedet dam → east end",
+      "kind": "cars",
+      "status": "untested",
+      "chain": [
+        "Juvuln"
+      ],
+      "station": "morsil",
+      "freeze": "8 Dec",
+      "out": [
+        {
+          "mode": "car",
+          "text": "Two cars: leave one at the road by the east end and start at the <b>Kallsedet</b> dam (about 70 min from Åre)."
+        },
+        {
+          "mode": "bus",
+          "text": "Weekdays: bus <b>551</b> stops at Kallsedet and Kolåsen."
+        }
+      ],
+      "back": [
+        {
+          "mode": "car",
+          "text": "Collect the car at the east end. The road access comes from OSM and is unverified."
+        }
+      ],
+      "access": [
+        {
+          "name": "Kallsedet dam",
+          "ll": [
+            63.7013,
+            12.959
+          ],
+          "type": "car"
+        },
+        {
+          "name": "North shore road",
+          "ll": [
+            63.7292,
+            13.1508
+          ],
+          "type": "car"
+        },
+        {
+          "name": "East end (OSM road)",
+          "ll": [
+            63.6752,
+            13.3582
+          ],
+          "type": "car"
+        }
+      ],
+      "hazards": [
+        "Juvuln is regulated (dam since 1941) and the drawdown is unknown, so expect a broken shore zone.",
+        "Avoid the dam and power-station end at Kallsedet itself, and get on a little east of it.",
+        "Snowmobile trails cross the lake (VÄSEK: Kallsedet–Kyrkstigen and Bottenleden).",
+        "There are no skating reports for this lake. Treat it as unknown ice."
+      ],
+      "note": "Freezes late (median 8 Dec, SMHI), so it suits mid-winter, when the lower lakes are snowed over. You can check the water level daily on Fortum's Juvelns kraftverk page.",
+      "spots": [
+        {
+          "type": "open",
+          "name": "Juvuln dam and power station",
+          "at": [
+            63.7013,
+            12.959
+          ],
+          "r": 400,
+          "text": "Intake and dam. Stay away, and get on the ice further east."
+        }
+      ]
+    },
+    {
+      "id": "anjan",
+      "name": "Anjan end to end",
+      "sub": "Road 336 → Anjan village → Anjehem",
+      "kind": "cars",
+      "status": "untested",
+      "chain": [
+        "Anjan"
+      ],
+      "station": "morsil",
+      "freeze": "6 Dec",
+      "out": [
+        {
+          "mode": "car",
+          "text": "Two cars: leave one at <b>Anjehem</b> by the dam (about 65 min from Åre) and drive to road 336 on the west shore (about 80 min)."
+        },
+        {
+          "mode": "bus",
+          "text": "Weekdays: bus <b>551</b> serves Anjan and Sundet."
+        }
+      ],
+      "back": [
+        {
+          "mode": "car",
+          "text": "Collect the car at Anjehem."
+        }
+      ],
+      "access": [
+        {
+          "name": "Road 336, west shore",
+          "ll": [
+            63.7388,
+            12.4714
+          ],
+          "type": "car"
+        },
+        {
+          "name": "Anjan village",
+          "ll": [
+            63.7051,
+            12.6496
+          ],
+          "type": "car"
+        },
+        {
+          "name": "Anjehem dam",
+          "ll": [
+            63.6818,
+            12.809
+          ],
+          "type": "car"
+        }
+      ],
+      "hazards": [
+        "The level can vary by up to 9.2 m (regulated since 1940), so the shores will be tilted and broken. Pick your way on and off carefully.",
+        "Avoid the dam and intake at Anjehem.",
+        "Stor-Rensjön drains in at the west end via Vukumanån, so watch for soft ice near the inflow.",
+        "There are no skating reports for this lake. Treat it as unknown ice."
+      ],
+      "note": "Long, narrow and remote. You can check the water level on Fortum's Anjans kraftverk page.",
+      "spots": [
+        {
+          "type": "open",
+          "name": "Anjehem dam",
+          "at": [
+            63.681,
+            12.807
+          ],
+          "r": 350,
+          "text": "Dam and intake. Keep clear."
+        },
+        {
+          "type": "maybe",
+          "name": "Vukumanån inflow",
+          "at": [
+            63.742,
+            12.44
+          ],
+          "r": 500,
+          "text": "Inflow from Stor-Rensjön, where soft ice is possible. Position approximate."
+        }
+      ]
+    },
+    {
+      "id": "aresjon",
+      "name": "Åre → Brattland",
+      "sub": "Down Åresjön from the station",
+      "kind": "bus",
+      "status": "reported",
+      "chain": [
+        "Åresjön"
+      ],
+      "station": "storlien",
+      "freeze": "16 Nov",
+      "out": [
+        {
+          "mode": "walk",
+          "text": "Start at <b>Åre station</b>, which is about 150 m from the ice."
+        }
+      ],
+      "back": [
+        {
+          "mode": "bus",
+          "text": "Bus <b>157</b> from Brattland or Så back to Åre runs roughly every hour, every day."
+        },
+        {
+          "mode": "car",
+          "text": "Or use two cars: Så/Brattland is about 8 min from Åre."
+        }
+      ],
+      "access": [
+        {
+          "name": "Åre station",
+          "ll": [
+            63.3987,
+            13.0765
+          ],
+          "type": "train"
+        },
+        {
+          "name": "Så / Brattland end",
+          "ll": [
+            63.3614,
+            13.1762
+          ],
+          "type": "car"
+        }
+      ],
+      "hazards": [
+        "The Indalsälven flows through the lake, so expect current and weaker ice at the inflow (west) and the outlet (east).",
+        "Ice-rally and snowmobile tracks can make the surface rough."
+      ],
+      "note": "New Year's Eve 2014: \"åkbar från Åre till Brattland\" (SLSK Iskontakten). On 22 Nov 2013 the ice was good but covered in rime frost (<a href=\"https://linahallebratt.se/blogg/2013/11/22/langfardsskridskor-aresjon-och-helgesjon/\" target=\"_blank\" rel=\"noopener\">blog</a>). It's short, but you can step out of your door and go, which suits an evening session.",
+      "spots": [
+        {
+          "type": "maybe",
+          "name": "Indalsälven outlet",
+          "at": [
+            63.353,
+            13.169
+          ],
+          "r": 500,
+          "text": "Current where the river leaves the lake. Expect thinner ice. Position approximate."
+        }
+      ]
+    },
+    {
+      "id": "gevsjon",
+      "name": "Gevsjön loop",
+      "sub": "Early ice beside the E14",
+      "kind": "loop",
+      "status": "reported",
+      "chain": [
+        "Gevsjön"
+      ],
+      "station": "storlien",
+      "freeze": "12 Nov",
+      "out": [
+        {
+          "mode": "car",
+          "text": "Park by the E14 at the east end, or at Tångböle on the west end (about 25 min from Åre)."
+        },
+        {
+          "mode": "bus",
+          "text": "Weekdays: bus <b>571</b> stops at Gevsjön."
+        }
+      ],
+      "back": [
+        {
+          "mode": "car",
+          "text": "Back to the car."
+        }
+      ],
+      "access": [
+        {
+          "name": "Tångböle",
+          "ll": [
+            63.3708,
+            12.6241
+          ],
+          "type": "car"
+        },
+        {
+          "name": "E14 east end",
+          "ll": [
+            63.36,
+            12.6842
+          ],
+          "type": "car"
+        }
+      ],
+      "hazards": [
+        "Gevsjön is shallow and freezes early, so it's often the first lake that can be skated.",
+        "River current at both ends, from Bodsjöströmmen in and the outflow towards Bodsjön.",
+        "Two skaters went through the ice on the first Advent weekend in 2022 (Sveriges Radio). Check the ice carefully early in the season."
+      ],
+      "note": "One of the most popular lakes in Åre kommun, according to are.se and aresweden.com.",
+      "spots": [
+        {
+          "type": "maybe",
+          "name": "Inflow, west end",
+          "at": [
+            63.373,
+            12.61
+          ],
+          "r": 400,
+          "text": "Bodsjöströmmen enters here. Current means thin ice. Position approximate."
+        },
+        {
+          "type": "maybe",
+          "name": "Outflow, east end",
+          "at": [
+            63.374,
+            12.702
+          ],
+          "r": 400,
+          "text": "Where the river leaves for Bodsjön. Current means thin ice. Position approximate."
+        }
+      ]
+    },
+    {
+      "id": "helgesjon",
+      "name": "Helgesjön loop",
+      "sub": "Three linked lakes north of Undersåker",
+      "kind": "loop",
+      "status": "reported",
+      "chain": [
+        "Helgesjön"
+      ],
+      "station": "storlien",
+      "freeze": "about mid-Nov (no SMHI series)",
+      "out": [
+        {
+          "mode": "car",
+          "text": "Park on the road along the north side (about 40 min from Åre)."
+        }
+      ],
+      "back": [
+        {
+          "mode": "car",
+          "text": "Back to the car."
+        }
+      ],
+      "access": [
+        {
+          "name": "North-side road",
+          "ll": [
+            63.362,
+            13.2645
+          ],
+          "type": "car"
+        }
+      ],
+      "hazards": [
+        "Regulated by a dam at the south-east end (63.340, 13.312), so expect some shore cracks.",
+        "Watch for small holes where meltwater has run down (reported 1 Jan 2015)."
+      ],
+      "note": "Several good reports: \"Fantastisk is på Helgesjön (3 st sammanlänkade sjöar)… solid över hela sjösystemet\" (22 Nov 2014), and \"Fantastiska isar\" (1 Jan 2015), both from SLSK Iskontakten. On 22 Nov 2013 it had totally clear new ice. are.se recommends it too.",
+      "spots": [
+        {
+          "type": "maybe",
+          "name": "Helgesjön dam",
+          "at": [
+            63.3398,
+            13.3123
+          ],
+          "r": 300,
+          "text": "Dam at the outlet. Keep clear."
+        }
+      ]
+    },
+    {
+      "id": "medstugusjon",
+      "name": "Medstugusjön",
+      "sub": "Unregulated border lake that freezes early",
+      "kind": "loop",
+      "status": "untested",
+      "chain": [
+        "Medstugusjön"
+      ],
+      "station": "storlien",
+      "freeze": "14 Nov",
+      "out": [
+        {
+          "mode": "car",
+          "text": "Drive road 322 (Skalstuguvägen) to the lake, about 45 min from Åre."
+        }
+      ],
+      "back": [
+        {
+          "mode": "car",
+          "text": "Back to the car."
+        }
+      ],
+      "access": [
+        {
+          "name": "Road 322",
+          "ll": [
+            63.5549,
+            12.371
+          ],
+          "type": "car"
+        }
+      ],
+      "hazards": [
+        "Small (8 km²) but unregulated, so the ice should be even.",
+        "There are no skating reports. At 536 m it's exposed to wind and early snow."
+      ],
+      "note": "A good first-ice check before the bigger lakes. SMHI has an active ice station here (median freeze-up 14 Nov).",
       "spots": []
     }
   ],
