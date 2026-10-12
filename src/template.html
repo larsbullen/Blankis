@@ -110,7 +110,7 @@ h3{font-size:12.5px;text-transform:uppercase;letter-spacing:.06em;color:var(--te
 .tl b{font-variant-numeric:tabular-nums}
 .verdict{margin-top:10px;font-weight:650;font-size:14px;display:flex;gap:8px;align-items:flex-start}
 .verdict .dot{flex:none;width:20px;height:20px;border-radius:50%;display:grid;place-items:center;color:#fff;font-size:12px;margin-top:1px}
-.verdict.ok .dot{background:var(--ok)} .verdict.bad .dot{background:var(--warn)}
+.verdict.ok .dot{background:var(--ok)} .verdict.dark .dot{background:#111} :root[data-theme="dark"] .verdict.dark .dot{background:#555}
 .daybar{position:relative;height:10px;border-radius:999px;background:var(--night);margin:12px 0 4px;overflow:hidden}
 .daybar .light{position:absolute;top:0;bottom:0;background:var(--day)}
 .daybar .civil{position:absolute;top:0;bottom:0;background:var(--civil)}
@@ -162,7 +162,7 @@ footer{color:var(--text-3);font-size:12px;margin-top:24px}
         <li>Never alone, with 10–20 m between skaters</li>
         <li>Tell someone your route and when you'll be back</li>
         <li>Skate guards or light boots for the walking stretches</li>
-        <li>Headlamp: the December day is about 5 hours</li>
+        <li>Headlamps, plus spare batteries (cold drains them)</li>
         <li>Rule of thumb: 5 cm of clear ice per person, 10 cm for a group</li>
       </ul>
     </section>
@@ -403,8 +403,7 @@ function planHTML(r, v){
   const [sh, sm] = (v.start || '09:30').split(':').map(Number); const start = sh*60 + sm;
   const skate = km.ice / pace.v * 60, walk = km.walk / 3.5 * 60, breaks = Math.floor(skate/60) * 10;
   const total = skate + walk + breaks, end = start + total;
-  const latest = dusk - total;
-  const ok = end <= dusk;
+    const ok = end <= dusk;
   const lo = Math.min(dawn, start) - 30, hi = Math.max(dusk, end) + 30, span = hi - lo, pct = t => ((t-lo)/span*100).toFixed(2)+'%';
   return `
     <ul class="tl">
@@ -419,9 +418,9 @@ function planHTML(r, v){
       <div class="trip" style="left:${pct(start)};width:${(total/span*100).toFixed(2)}%"></div>
     </div>
     <div class="dayaxis"><span>${hm(lo)}</span><span>${hm(hi)}</span></div>
-    <div class="verdict ${ok?'ok':'bad'}"><span class="dot" aria-hidden="true">${ok?'✓':'!'}</span><span>${ok
-      ? `Off the ice ${dur(dusk-end)} before dusk. Latest start ${hm(latest)}.`
-      : `${dur(end-dusk)} after dusk. ${latest > dawn ? `Start by ${hm(latest)}, or pick faster ice.` : 'This won’t fit in daylight on that date, so choose a later season or a shorter route.'}`}</span></div>
+    <div class="verdict ${ok?'ok':'dark'}"><span class="dot" aria-hidden="true">${ok?'✓':'☾'}</span><span>${ok
+      ? `All in daylight: off the ice ${dur(dusk-end)} before dusk.`
+      : `Headlamp time: the last ${dur(Math.min(end-dusk, total))} after dusk (${hm(dusk)}). Check the last train or bus home.`}</span></div>
     <p class="small muted" style="margin:8px 0 0">${pace.why}. Walking is counted at 3.5 km/h, plus 10 min of breaks per hour on the ice.</p>`;
 }
 document.getElementById('routes').addEventListener('click', e => {
