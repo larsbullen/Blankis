@@ -43,19 +43,23 @@ h1 span{color:var(--accent)}
 .mapcol{position:relative}
 /* phones/tablets: header, then map, then everything else */
 @media (max-width:979px){.stack{display:contents}.stack>header{order:0}.mapcol{order:1}.stack>:not(header){order:2}}
-/* desktop: full-viewport map with a left sidebar */
+/* desktop: full-bleed map with a floating panel on the left */
 @media (min-width:980px){
   html,body{height:100%;overflow:hidden}
   .wrap{max-width:none;margin:0;padding:0;height:100vh}
-  .grid{display:grid;grid-template-columns:440px minmax(0,1fr);gap:0;height:100vh}
-  .stack{height:100vh;overflow-y:auto;overscroll-behavior:contain;padding:20px 16px 32px;background:var(--bg);box-shadow:1px 0 0 var(--line);position:relative;z-index:1}
-  .stack header{margin-top:4px}
-  .mapcol{height:100vh}
+  .grid{display:block;position:relative;height:100vh}
+  .mapcol{position:fixed;inset:0}
+  .stack{position:fixed;top:16px;left:16px;bottom:16px;width:420px;z-index:1000;overflow-y:auto;overscroll-behavior:contain;
+    padding:18px 14px 24px;border-radius:26px;background:color-mix(in srgb,var(--bg) 92%,transparent);
+    -webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);box-shadow:0 10px 40px rgba(0,0,0,.22),0 0 0 1px rgba(0,0,0,.04);scrollbar-width:thin}
+  .stack header{margin:4px 4px 16px}
+  .mapcol .maplegend{left:452px;bottom:26px}
 }
 .card{background:var(--card);border-radius:var(--radius);padding:18px}
 .card h2{font-size:13px;text-transform:uppercase;letter-spacing:.06em;color:var(--text-2);margin:0 0 10px;font-weight:650}
 #map{height:46vh;min-height:300px;border-radius:var(--radius);overflow:hidden;background:var(--surface-2)}
 @media (min-width:980px){#map{height:100vh;border-radius:0}}
+.leaflet-bottom.leaflet-right .leaflet-control-zoom{margin-bottom:8px}
 .leaflet-container{font:inherit}
 .ztip{max-width:240px;white-space:normal}
 .maptoggle{position:absolute;z-index:500;right:10px;top:10px;display:flex;gap:6px}
@@ -479,7 +483,10 @@ document.getElementById('routes').addEventListener('click', e => {
 });
 
 /* ---------- map ---------- */
-const map = L.map('map', { zoomControl: true, attributionControl: true }).setView([63.30, 12.85], 9);
+const map = L.map('map', { zoomControl: false, attributionControl: true }).setView([63.30, 12.85], 9);
+L.control.zoom({ position: 'bottomright' }).addTo(map);
+const desk = matchMedia('(min-width:980px)');
+const fitPad = () => desk.matches ? { paddingTopLeft: [452 + 24, 40], paddingBottomRight: [40, 40] } : { padding: [24, 24] };
 const topo = L.tileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', { maxZoom: 16, attribution: '© OpenStreetMap, © OpenTopoMap (CC-BY-SA)' });
 const osm = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom: 18, attribution: '© OpenStreetMap contributors' });
 topo.addTo(map);
@@ -524,11 +531,11 @@ function styleRoutes(fit){
       L_.pins.eachLayer(p => p.setStyle({ color: '#fff', fillColor: acc, fillOpacity: 1 })); }
     else map.removeLayer(L_.pins);
   }
-  if (fit && openId) map.fitBounds(layers[openId].grp.getBounds(), { padding: [30, 30] });
+  if (fit && openId) map.fitBounds(layers[openId].grp.getBounds(), fitPad());
 }
 
 renderFilters(); renderRoutes(); styleRoutes(!!openId); renderGauge();
-if (!openId) map.fitBounds(L.featureGroup(Object.values(layers).map(l => l.grp)).getBounds(), { padding: [20, 20] });
+if (!openId) map.fitBounds(L.featureGroup(Object.values(layers).map(l => l.grp)).getBounds(), fitPad());
 </script>
 </body>
 </html>
