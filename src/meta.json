@@ -482,16 +482,6 @@
             12.9261
           ],
           "text": "A stream falling about 6 km to Ottsjön. It is unknown whether it can be skated, so be ready to walk all of it."
-        },
-        {
-          "type": "maybe",
-          "name": "Ridvadet ford, Ottsjön",
-          "at": [
-            63.2125,
-            13.045
-          ],
-          "r": 450,
-          "text": "A shallow ford (under 40 cm deep) across the lake from Ottsjö village. Ice may be weak here. Position approximate, unverified."
         }
       ],
       "freeze": "13–16 Nov"
@@ -866,11 +856,11 @@
           "type": "maybe",
           "name": "Ridvadet ford",
           "at": [
-            63.2125,
-            13.045
+            63.2032,
+            13.0981
           ],
           "r": 450,
-          "text": "A shallow ford across the lake from Ottsjö village. Ice may be weak here. Position approximate, unverified."
+          "text": "A sandbar with current across the lake, fed by the Vålån, east of Ottsjö village. People fell through here in Nov 2014. Cross at its south end."
         }
       ],
       "freeze": "16 Nov",
@@ -1238,11 +1228,11 @@
           "type": "maybe",
           "name": "Vukumanån inflow",
           "at": [
-            63.742,
-            12.44
+            63.7138,
+            12.4589
           ],
-          "r": 500,
-          "text": "Inflow from Stor-Rensjön, where soft ice is possible. Position approximate."
+          "r": 400,
+          "text": "Inflow from Stor-Rensjön at the tip of the south-west arm, by Melen. Soft ice is possible."
         }
       ]
     },
@@ -1473,6 +1463,996 @@
       ],
       "note": "A good first-ice check before the bigger lakes. SMHI has an active ice station here (median freeze-up 14 Nov).",
       "spots": []
+    },
+    {
+      "id": "rektjarnarna-tor",
+      "name": "Rektjärnarna from Rundhögen",
+      "sub": "Walk to Sevedholm, then skate up the Enan and the winding Rekån to two fell tarns",
+      "kind": "tor",
+      "status": "untested",
+      "chain": [
+        "Enan",
+        "Rekån",
+        "Rektjärnarna"
+      ],
+      "station": "storlien",
+      "freeze": "mid-Nov (est.)",
+      "out": [
+        {
+          "mode": "car",
+          "text": "Drive to the <b>Rundhögen</b> car park at Storvallen (road 656), about 50 min from Åre."
+        },
+        {
+          "mode": "walk",
+          "text": "Walk about 3 km beside the Rundhögsleden ski tracks (not in them) to the <b>Sevedholm</b> bridge and shelter. Get on the ice about 400 m upstream."
+        }
+      ],
+      "back": [
+        {
+          "mode": "walk",
+          "text": "Skate back down Rekån and the Enan to Sevedholm, then walk out to the car park."
+        }
+      ],
+      "access": [
+        {
+          "name": "Rundhögen car park",
+          "ll": [
+            63.2531,
+            12.1834
+          ],
+          "type": "car"
+        },
+        {
+          "name": "Sevedholm shelter",
+          "ll": [
+            63.23264,
+            12.15913
+          ],
+          "type": "walk"
+        }
+      ],
+      "hazards": [
+        "River ice all the way: thinner over the current, on the outside of bends, at the confluence and by the bridge.",
+        "Rekån is a narrow mire stream. Expect springs and snowdrifts.",
+        "About 650 m up on open fell, so wind and early snow are likely. Go after a cold, calm spell early in the season.",
+        "Reindeer-herding land. Stay out of the groomed ski tracks."
+      ],
+      "note": "Your friend's suggestion. A shorter version turns at the Rekån confluence: about 15 km there and back. No SMHI ice station nearby. Ånnsjön, downstream on the same system, freezes around 14 Nov.",
+      "spots": [
+        {
+          "type": "open",
+          "name": "Sevedholm bridge",
+          "at": [
+            63.23227,
+            12.15919
+          ],
+          "r": 150,
+          "text": "Current under the bridge. Get on the ice upstream of it."
+        },
+        {
+          "type": "maybe",
+          "name": "Rekån–Enan confluence",
+          "at": [
+            63.22096,
+            12.1157
+          ],
+          "r": 150,
+          "text": "Two streams meet here, so expect thin ice."
+        },
+        {
+          "type": "maybe",
+          "name": "Tarn outflow",
+          "at": [
+            63.238,
+            12.0756
+          ],
+          "r": 80,
+          "text": "Where the lower tarn drains into Rekån."
+        },
+        {
+          "type": "maybe",
+          "name": "Rekån",
+          "from": [
+            63.22096,
+            12.1157
+          ],
+          "to": [
+            63.23579,
+            12.07557
+          ],
+          "text": "About 4 km of narrow, winding stream ice. Nobody has reported skating it, so assume some walking."
+        }
+      ]
+    },
+    {
+      "id": "norder-rensjon-tor",
+      "name": "Norder-Rensjön from Visjöstugan",
+      "sub": "A chain of border lakes at 605 m, up to the north end of Norder-Rensjön",
+      "kind": "tor",
+      "status": "untested",
+      "chain": [
+        "Sönner-Rensjön",
+        "Lillsjön",
+        "Sundet",
+        "Norder-Rensjön"
+      ],
+      "station": "storlien",
+      "freeze": "mid-Nov (est.)",
+      "out": [
+        {
+          "mode": "walk",
+          "text": "<b>Visjöstugan</b> has no ploughed road. Walk or ski about 7 km in from <b>Storlien</b> along the railway, or stay overnight at the cabin."
+        },
+        {
+          "mode": "walk",
+          "text": "From the cabin, about 3.6 km on the track by the railway, then north-east to the south tip of Sönner-Rensjön."
+        }
+      ],
+      "back": [
+        {
+          "mode": "walk",
+          "text": "Same way back. Or from the south tip, take the track about 7 km south-east to Enanfors on E14, which has a train stop and bus 571 on weekdays."
+        }
+      ],
+      "access": [
+        {
+          "name": "Visjöstugan",
+          "ll": [
+            63.31582,
+            12.23063
+          ],
+          "type": "walk"
+        },
+        {
+          "name": "Enanfors rest area (E14)",
+          "ll": [
+            63.2874,
+            12.3261
+          ],
+          "type": "car"
+        }
+      ],
+      "hazards": [
+        "The narrows carry current: Sundet (40–80 m wide) and the strait at Rensjönäset.",
+        "Streams flow into Norder-Rensjön: Tväråån and one at the north-west end.",
+        "Exposed to wind and drifting snow at 605 m on the border, with a headwind one way.",
+        "A snowmobile trail and a twig-marked winter route run on and along the ice. Reindeer-herding land."
+      ],
+      "note": "Your friend's suggestion. The ice part is about 24 km there and back on a long chain of lakes that freeze early. As a day trip from Åre it's a long walk in, so it suits a night at Visjöstugan best. There's no SMHI ice station; Medstugusjön (536 m) freezes around 14 Nov.",
+      "spots": [
+        {
+          "type": "open",
+          "name": "Husån outlet",
+          "at": [
+            63.31953,
+            12.28371
+          ],
+          "r": 200,
+          "text": "Sönner-Rensjön drains here, near the put-in."
+        },
+        {
+          "type": "maybe",
+          "name": "Rensjönäset strait",
+          "at": [
+            63.3556,
+            12.2882
+          ],
+          "r": 150,
+          "text": "Narrows with current."
+        },
+        {
+          "type": "maybe",
+          "name": "Sundet",
+          "at": [
+            63.37006,
+            12.28363
+          ],
+          "r": 150,
+          "text": "40–80 m wide with current. Cross in the middle, or walk the shore."
+        },
+        {
+          "type": "maybe",
+          "name": "Tväråån inflow",
+          "at": [
+            63.4053,
+            12.2561
+          ],
+          "r": 200,
+          "text": "Stream mouth. Thin ice is possible."
+        },
+        {
+          "type": "maybe",
+          "name": "North-west inflow",
+          "at": [
+            63.4165,
+            12.21525
+          ],
+          "r": 150,
+          "text": "Stream from Brattjärnen."
+        }
+      ]
+    },
+    {
+      "id": "rensjon-tor",
+      "name": "Stor-Rensjön from Summelsjön",
+      "sub": "Up the dam's outflow to a big reservoir that freezes late",
+      "kind": "tor",
+      "status": "untested",
+      "chain": [
+        "Skärvattnet",
+        "Korsvattnet",
+        "Lill-Rensjön",
+        "Stor-Rensjön"
+      ],
+      "station": "storlien",
+      "freeze": "1 Jan",
+      "out": [
+        {
+          "mode": "car",
+          "text": "Drive to <b>Summelsjön</b> at Åbo on road 336, about 70 min from Åre. The router goes via Skalstugan and Norway, so check the winter road status."
+        },
+        {
+          "mode": "walk",
+          "text": "Cross road 336 onto Skärvattnet, then walk about 4.5 km along the north-east bank of Nedre Rensjöån and the dam track to the <b>Rensjö dam</b>. Get on the ice on Lill-Rensjön."
+        }
+      ],
+      "back": [
+        {
+          "mode": "walk",
+          "text": "Same way back. Get off the ice on Lill-Rensjön south-east of the dam."
+        }
+      ],
+      "access": [
+        {
+          "name": "Summelsjön, Åbo (road 336)",
+          "ll": [
+            63.7077,
+            12.3558
+          ],
+          "type": "car"
+        },
+        {
+          "name": "Melen (road 336), dam track",
+          "ll": [
+            63.7126,
+            12.4581
+          ],
+          "type": "car"
+        }
+      ],
+      "hazards": [
+        "The streams and small ponds below the dam carry the reservoir's winter release. Expect open water and walk beside them.",
+        "Regulated reservoir: keep clear of the dam intake, and expect cracks and slush along the shore.",
+        "Freezes late (median 1 Jan). The season is January–March, with a high risk of snow on an exposed lake at 500 m.",
+        "Snowmobile trails and twig-marked winter routes cross the ice."
+      ],
+      "note": "Your friend's suggestion. Summelsjön isn't connected to Stor-Rensjön, so the start is a walk up the outflow. SMHI's Stor-Rensjön station is at the dam: median freeze 27 Dec (1 Jan since 1980). Turn around north-west of Godön, or go on east towards Bodviken for about 5 km more each way.",
+      "spots": [
+        {
+          "type": "open",
+          "name": "Summelsjön outlet / road bridge",
+          "at": [
+            63.7085,
+            12.3655
+          ],
+          "r": 250,
+          "text": "Current at the road 336 bridge."
+        },
+        {
+          "type": "open",
+          "name": "Rensjö dam",
+          "at": [
+            63.6739,
+            12.4379
+          ],
+          "r": 300,
+          "text": "Dam and intake. Keep well clear."
+        },
+        {
+          "type": "maybe",
+          "name": "Korsvattnet outlet",
+          "at": [
+            63.68355,
+            12.41657
+          ],
+          "r": 150,
+          "text": "Through-flow pond on the regulated outflow."
+        },
+        {
+          "type": "maybe",
+          "name": "Lill-Rensjön / Stor-Rensjön strait",
+          "at": [
+            63.66377,
+            12.47817
+          ],
+          "r": 150,
+          "text": "Narrows. Thin ice is possible (unverified)."
+        },
+        {
+          "type": "maybe",
+          "name": "Outflow streams below the dam",
+          "from": [
+            63.69998,
+            12.38679
+          ],
+          "to": [
+            63.67078,
+            12.44366
+          ],
+          "text": "The router counts these streams as ice, but they carry the winter release. Plan to walk beside them."
+        }
+      ]
+    },
+    {
+      "id": "lyckan-grapplingen",
+      "name": "Lyckans läger → Gräpplingen",
+      "sub": "Ski in from Edsåsdalen, then skate a string of fell lakes down to Gräpplingen and back",
+      "kind": "tor",
+      "status": "untested",
+      "chain": [
+        "Lill-Offsjön",
+        "Stor-Offsjön",
+        "Ygyln",
+        "Stor-Gräpplingen",
+        "Lill-Gräpplingen",
+        "Tarmen"
+      ],
+      "station": "storlien",
+      "freeze": "early Nov (est.)",
+      "out": [
+        {
+          "mode": "car",
+          "text": "Drive to <b>Edsåsdalen</b> (about 30 min from Åre). On school weekdays, bus <b>561</b> leaves Undersåker 06:45 and arrives in Edsåsdalen 07:00."
+        },
+        {
+          "mode": "walk",
+          "text": "Walk or ski about 5–6 km on trails 120/122 to <b>Lyckans läger</b> on Lill-Offsjön, then skate west through the chain. Expect short walks between lakes."
+        }
+      ],
+      "back": [
+        {
+          "mode": "walk",
+          "text": "Skate back up the chain. From the Offsjöarna junction, the snowmobile trail is the shortest way back to Edsåsdalen (about 6.5 km)."
+        },
+        {
+          "mode": "bus",
+          "text": "Bus 561 leaves Edsåsdalen at 14:50 and 16:30 on weekdays. School-run trips don't run 21 Dec–10 Jan."
+        }
+      ],
+      "access": [
+        {
+          "name": "Edsåsdalen parking",
+          "ll": [
+            63.31508,
+            13.05978
+          ],
+          "type": "car"
+        },
+        {
+          "name": "Lyckans läger",
+          "ll": [
+            63.28744,
+            12.98688
+          ],
+          "type": "walk"
+        }
+      ],
+      "hazards": [
+        "Every link between the lakes is a stream with a drop of 26–27 m, so outlets and inlets will be weak.",
+        "Snow comes early at 620–675 m.",
+        "No ice data and no reports. People cut water holes by the cabins.",
+        "None of these lakes is regulated, so the ice should be even."
+      ],
+      "note": "Your friend's suggestion. There's no water between Gräpplingen and Edsåsdalen, only a 750–870 m fell, so the skate itself is an out-and-back: about 15 km of ice. With a night at Lyckans läger (rental cabins with a sauna) it makes a relaxed two-day trip. Alternative ending: walk about 6 km down Skårrån to Ottsjön and take bus 562 from Ottsjö.",
+      "spots": [
+        {
+          "type": "maybe",
+          "name": "Lill/Stor-Offsjön connector",
+          "at": [
+            63.2815,
+            12.967
+          ],
+          "r": 100,
+          "text": "Short stream between the two lakes."
+        },
+        {
+          "type": "maybe",
+          "name": "Stor-Offsjön outlet",
+          "at": [
+            63.2735,
+            12.9528
+          ],
+          "r": 150,
+          "text": "Offsjöån leaves the lake here. Walk about 1 km beside it."
+        },
+        {
+          "type": "maybe",
+          "name": "Ygyln outlet",
+          "at": [
+            63.2779,
+            12.9284
+          ],
+          "r": 100,
+          "text": "Ygylån leaves the lake here."
+        },
+        {
+          "type": "maybe",
+          "name": "Ygylån inflow",
+          "at": [
+            63.2797,
+            12.9086
+          ],
+          "r": 200,
+          "text": "Where Ygylån enters Stor-Gräpplingen."
+        },
+        {
+          "type": "maybe",
+          "name": "Gräpplingen strait",
+          "at": [
+            63.2915,
+            12.8872
+          ],
+          "r": 100,
+          "text": "Narrow strait between Stor- and Lill-Gräpplingen."
+        },
+        {
+          "type": "maybe",
+          "name": "Tarmarbäcken",
+          "at": [
+            63.2955,
+            12.858
+          ],
+          "r": 80,
+          "text": "Short stream into Tarmen."
+        }
+      ]
+    },
+    {
+      "id": "anjan-runt",
+      "name": "Anjan runt",
+      "sub": "Loop around western Anjan from Anjans fjällstation",
+      "kind": "loop",
+      "status": "untested",
+      "chain": [
+        "Anjan",
+        "Baksjön (optional)"
+      ],
+      "station": "storlien",
+      "freeze": "6 Dec",
+      "out": [
+        {
+          "mode": "car",
+          "text": "Drive to <b>Anjans fjällstation</b> (road 336), about 75 min from Åre. There's public parking by the road."
+        },
+        {
+          "mode": "walk",
+          "text": "Skate west along the south shore into the south-west arm towards Melen."
+        }
+      ],
+      "back": [
+        {
+          "mode": "walk",
+          "text": "Come back along the north shore via the north-west arm. Road 336 follows the north shore the whole way if you need to bail out."
+        }
+      ],
+      "access": [
+        {
+          "name": "Anjans fjällstation",
+          "ll": [
+            63.71087,
+            12.6307
+          ],
+          "type": "car"
+        },
+        {
+          "name": "Parking by road 336",
+          "ll": [
+            63.71221,
+            12.65223
+          ],
+          "type": "car"
+        }
+      ],
+      "hazards": [
+        "Regulated by up to 9.2 m, and Fortum is already lowering it (+422.18 m on 12 Oct, +421.64 m on 23 Oct). Expect cracks and slush along the shore.",
+        "Through-flow in the sound under the road bridge to Baksjön.",
+        "Stor-Rensjön's water enters through the Vukumanån at the tip of the south-west arm.",
+        "The island channels and narrows probably get thinner as the level drops. No skating reports."
+      ],
+      "note": "Your friend's suggestion. The west loop is about 30 km. A lap of Baksjön (about 4 km) fits in at the start or end. For a 'full' round, add the narrow east half out to the Anjehem dam: about 9.7 km each way, roughly 50 km in total. Best in a cold, snow-free spell in December.",
+      "spots": [
+        {
+          "type": "open",
+          "name": "Bridge sound to Baksjön",
+          "at": [
+            63.7095,
+            12.6379
+          ],
+          "r": 150,
+          "text": "Through-flow under the road 336 bridge."
+        },
+        {
+          "type": "maybe",
+          "name": "Vukumanån inflow",
+          "at": [
+            63.7138,
+            12.4589
+          ],
+          "r": 400,
+          "text": "Inflow from Stor-Rensjön at the tip of the south-west arm."
+        },
+        {
+          "type": "maybe",
+          "name": "Island-channel narrows",
+          "at": [
+            63.6915,
+            12.58
+          ],
+          "r": 300,
+          "text": "Narrow channels. Thinner ice is likely (unverified)."
+        }
+      ]
+    },
+    {
+      "id": "ottsjo-hackren",
+      "name": "Ottsjö → Håckrenlägret",
+      "sub": "Ottsjön, a short walk at Sjöändan, then 25 km down the Håckren reservoir",
+      "kind": "cars",
+      "status": "untested",
+      "chain": [
+        "Ottsjön",
+        "Håckren"
+      ],
+      "station": "morsil",
+      "freeze": "16 Nov (Ottsjön)",
+      "out": [
+        {
+          "mode": "car",
+          "text": "Leave one car at <b>Håckrenlägret</b> at Håckren's east end, about 55 min from Åre. Drive the other to Ottsjö. Or take bus <b>562</b> to Ottsjö."
+        },
+        {
+          "mode": "walk",
+          "text": "Get on the ice at Nästviken, the boat harbour just past the ICA shop in Ottsjö."
+        }
+      ],
+      "back": [
+        {
+          "mode": "walk",
+          "text": "At Sjöändan, walk 0.7 km from Ottsjön's east tip to Håckren's north-west arm, past the shelter. Don't skate the Storån."
+        },
+        {
+          "mode": "car",
+          "text": "Get off the ice at the slipway by Håckrenlägret. Furubergsviken, about halfway, has a road for bailing out."
+        }
+      ],
+      "access": [
+        {
+          "name": "Ottsjö, Nästviken",
+          "ll": [
+            63.2094,
+            13.0563
+          ],
+          "type": "car"
+        },
+        {
+          "name": "Sjöändan walk",
+          "ll": [
+            63.2059,
+            13.1614
+          ],
+          "type": "walk"
+        },
+        {
+          "name": "Furubergsviken (bail-out)",
+          "ll": [
+            63.1924,
+            13.4201
+          ],
+          "type": "car"
+        },
+        {
+          "name": "Håckrenlägret",
+          "ll": [
+            63.1926,
+            13.6279
+          ],
+          "type": "car"
+        }
+      ],
+      "hazards": [
+        "Håckren is regulated by up to 27 m over drowned forest. Only consider it on first ice, before a big drawdown, and expect broken shore ice and stumps.",
+        "The western narrows of Håckren turn back into river when the level is low.",
+        "Ridvadet on Ottsjön is a sandbar with current. People fell through in Nov 2014. Cross at its south end.",
+        "There's a power-station intake and a dam at the east end. No public level data."
+      ],
+      "note": "Your friend's suggestion. About 31 km. Ottsjön is unregulated; Håckren isn't, and nobody has reported skating it end to end. In Jan 2014 an SLSK skater wrote that Håckren and Aumen 'look clear from a distance'.",
+      "spots": [
+        {
+          "type": "maybe",
+          "name": "Ridvadet",
+          "at": [
+            63.2032,
+            13.0981
+          ],
+          "r": 450,
+          "text": "A sandbar with current, fed by the Vålån. Cross at its south end."
+        },
+        {
+          "type": "open",
+          "name": "Storån outlet and weir",
+          "at": [
+            63.1925,
+            13.134
+          ],
+          "r": 400,
+          "text": "Ottsjön drains here. The ice was weak in 2014. Walk across at Sjöändan instead."
+        },
+        {
+          "type": "maybe",
+          "name": "Sätterån inflow",
+          "at": [
+            63.2086,
+            13.1884
+          ],
+          "r": 200,
+          "text": "Stream mouth near the put-in on Håckren (unverified)."
+        },
+        {
+          "type": "open",
+          "name": "Power-station intake",
+          "at": [
+            63.2016,
+            13.6093
+          ],
+          "r": 400,
+          "text": "Keep well clear."
+        },
+        {
+          "type": "open",
+          "name": "Håckrendammen",
+          "at": [
+            63.1853,
+            13.6217
+          ],
+          "r": 300,
+          "text": "Dam at the east end."
+        }
+      ]
+    },
+    {
+      "id": "naldsjon-ange",
+      "name": "Nälden ⇄ Änge on Näldsjön",
+      "sub": "Näldsjön end to end from Nälden station and back",
+      "kind": "tor",
+      "status": "reported",
+      "chain": [
+        "Näldsjön"
+      ],
+      "station": "froson",
+      "freeze": "26 Nov",
+      "out": [
+        {
+          "mode": "train",
+          "text": "Norrtåg to <b>Nälden</b>; Saturday from Åre 08:09 gets there about 08:58 (autumn timetable, check winter times). Walk 600 m to the bathing place."
+        },
+        {
+          "mode": "walk",
+          "text": "Skate north-west up the lake to the pier at <b>Änge</b>, 16.6 km."
+        }
+      ],
+      "back": [
+        {
+          "mode": "walk",
+          "text": "Same way back to Nälden."
+        },
+        {
+          "mode": "train",
+          "text": "Westbound trains from Nälden on Saturdays at about 13:11 and 16:56 (autumn timetable)."
+        },
+        {
+          "mode": "bus",
+          "text": "One-way on a weekday: school bus <b>532</b> leaves Änge at 15:13 for Nälden."
+        }
+      ],
+      "access": [
+        {
+          "name": "Nälden station",
+          "ll": [
+            63.3487,
+            14.25417
+          ],
+          "type": "train"
+        },
+        {
+          "name": "Änge pier",
+          "ll": [
+            63.45317,
+            14.06791
+          ],
+          "type": "car"
+        }
+      ],
+      "hazards": [
+        "At Nälden the lake drains through Faxån past a dam and a small hydro plant. Keep north-east of Stationsudden.",
+        "Leads form off the same points every year, and the narrow northern half runs close to them.",
+        "The western part is thin early in the season. Cracks can hide under snow.",
+        "Ängesån flows in at the north-west tip."
+      ],
+      "note": "Your friend wrote 'Sulviken till Nälden', but the only Sulviken in Jämtland is on Kallsjön, 55 km away with no water link. This is the likely meaning: Näldsjön end to end. SLSK skates it often (Nälden → Änge and back on 7 Dec 2014; trips in 2016, 2019 and 2024). It freezes 3–6 weeks before Storsjön's Flaket. No walking needed.",
+      "spots": [
+        {
+          "type": "open",
+          "name": "Faxån outlet",
+          "at": [
+            63.35,
+            14.253
+          ],
+          "r": 400,
+          "text": "Dam and hydro plant at the outlet. Keep north-east of Stationsudden."
+        },
+        {
+          "type": "maybe",
+          "name": "Ängesån inflow",
+          "at": [
+            63.4497,
+            14.06
+          ],
+          "r": 300,
+          "text": "River mouth at the north-west tip."
+        }
+      ]
+    },
+    {
+      "id": "trangsviken-ostersund",
+      "name": "Trångsviken → Östersund",
+      "sub": "SLSK's classic: across Flaket and through Vallsundet into Östersund harbour",
+      "kind": "bus-train",
+      "status": "reported",
+      "chain": [
+        "Storsjön (Flaket)",
+        "Tjalmarsund",
+        "Vallsundet"
+      ],
+      "station": "froson",
+      "freeze": "16 Dec (Flaket)",
+      "out": [
+        {
+          "mode": "train",
+          "text": "Norrtåg from Åre to <b>Nälden</b> (Saturday 08:09 in the autumn timetable; check the winter one)."
+        },
+        {
+          "mode": "bus",
+          "text": "Bus <b>156</b> from Nälden to <b>Trångsviken</b>, arriving about 10:25 on Saturdays. Trångsviken has no train stop. Walk about 600 m to the pier."
+        }
+      ],
+      "back": [
+        {
+          "mode": "walk",
+          "text": "Get off the ice at Östersund harbour, 200 m from Östersund Västra station."
+        },
+        {
+          "mode": "train",
+          "text": "Trains to Åre on Saturdays at 12:38 and 16:31, and Sundays also at 18:22 (autumn timetable)."
+        }
+      ],
+      "access": [
+        {
+          "name": "Trångsviken pier",
+          "ll": [
+            63.33382,
+            14.00317
+          ],
+          "type": "bus"
+        },
+        {
+          "name": "Östersund Västra station",
+          "ll": [
+            63.17803,
+            14.63131
+          ],
+          "type": "train"
+        }
+      ],
+      "hazards": [
+        "Go south of Frösön. The northern line through Rödösundet carries the whole Indalsälven outflow and is open or cracked almost every year.",
+        "Early in the season the ice often ends at the mouth of Trångsviken bay (Hammarnäsudden). Expect a walk there.",
+        "Pass under Vallsundsbron mid-span; it's open by the abutments. Expect pack ice in Tjalmarsund.",
+        "Approach the harbour from the south, so you don't pass under Frösöbron, where there has been open water."
+      ],
+      "note": "Your friend's suggestion, and the best documented: SLSK skated it 3–5 Jan 2015 and 5 Mar 2021. About 42 km. You need Flaket frozen calm and free of snow, typically from mid-December to early January (median 16 Dec, recently 26 Dec 2024 and 3 Jan 2026). The Brunflo option adds about 15 km down Brunfloviken, but that bay freezes late and often reopens.",
+      "spots": [
+        {
+          "type": "maybe",
+          "name": "Trångsviken bay mouth",
+          "at": [
+            63.295,
+            14.08
+          ],
+          "r": 1500,
+          "text": "Early in the season the ice often ends here. SLSK walked about 1 km in Jan 2015."
+        },
+        {
+          "type": "maybe",
+          "name": "Tjalmarsund",
+          "at": [
+            63.179,
+            14.44
+          ],
+          "r": 600,
+          "text": "Strait south of Frösön. Expect pack ice (unverified)."
+        },
+        {
+          "type": "open",
+          "name": "Vallsundsbron",
+          "at": [
+            63.159,
+            14.6
+          ],
+          "r": 250,
+          "text": "Open by the bridge abutments. Pass mid-span."
+        },
+        {
+          "type": "open",
+          "name": "Frösöbron",
+          "at": [
+            63.1815,
+            14.6304
+          ],
+          "r": 400,
+          "text": "There has been open water here. Come into the harbour from the south."
+        },
+        {
+          "type": "open",
+          "name": "Rödösundet (off the route)",
+          "at": [
+            63.2216,
+            14.4676
+          ],
+          "r": 600,
+          "text": "The Indalsälven outflow. Avoid it."
+        }
+      ]
+    },
+    {
+      "id": "trangsviken-svenstavik",
+      "name": "Trångsviken → Svenstavik",
+      "sub": "The whole length of Storsjön, from the north-west bay down the south arm",
+      "kind": "bus",
+      "status": "proposed",
+      "chain": [
+        "Storsjön (Flaket)",
+        "Storsjön south arm"
+      ],
+      "station": "froson",
+      "freeze": "16 Dec (Flaket)",
+      "out": [
+        {
+          "mode": "train",
+          "text": "Norrtåg from Åre to <b>Nälden</b> (Saturday 08:09 in the autumn timetable; check the winter one)."
+        },
+        {
+          "mode": "bus",
+          "text": "Bus <b>156</b> from Nälden to <b>Trångsviken</b>, arriving about 10:25 on Saturdays. Trångsviken has no train stop. Walk about 600 m to the pier."
+        }
+      ],
+      "back": [
+        {
+          "mode": "walk",
+          "text": "Get off the ice on the west shore before Svenstavik, at least 500 m north of the Svenstaån inlet, and walk about 1.7 km to the bus stop."
+        },
+        {
+          "mode": "bus",
+          "text": "Bus <b>46</b> Svenstavik → Östersund, about 65 min: weekdays and Saturdays 12:10 and 18:10, Sundays 12:10 and 20:10. Or bus 164 (Saturday 18:05, Sunday 19:05). At weekends there's no connection on to Åre the same evening."
+        }
+      ],
+      "access": [
+        {
+          "name": "Trångsviken pier",
+          "ll": [
+            63.33382,
+            14.00317
+          ],
+          "type": "bus"
+        },
+        {
+          "name": "Svenstavik, west-shore parking",
+          "ll": [
+            62.782,
+            14.43508
+          ],
+          "type": "car"
+        },
+        {
+          "name": "Svenstavik Siris bus stop",
+          "ll": [
+            62.76739,
+            14.42777
+          ],
+          "type": "bus"
+        }
+      ],
+      "hazards": [
+        "Every way from Flaket to the south arm crosses a ferry lane or a bridged strait. On this line you walk 2–3 km around the Håkansta ferry landing.",
+        "Plowed ice roads open from mid-January, including Vällviken–Sunne, which crosses the route.",
+        "The ice along the west shore past Hallen and Norderön is often cracked or slushy. Storm leads on Flaket refreeze thin and hide under snow.",
+        "Regulated, with a 2.75 m range and about a 1.2 m drop from January to April: expect broken ice along the shore. Pass under Sannsundsbron mid-span."
+      ],
+      "note": "Your friend's suggestion. 75–85 km in practice, so this is a very long day. Nobody has reported the whole route; SLSK skated Svenstavik → Östersund, almost 80 km, with a tailwind on 6 Jan 2015. It's often better done the other way, south to north, with a southerly wind.",
+      "spots": [
+        {
+          "type": "walk",
+          "name": "Around Håkansta ferry lane",
+          "from": [
+            63.134,
+            14.296
+          ],
+          "to": [
+            63.1215,
+            14.326
+          ],
+          "text": "The Håkansta–Norderön ferry keeps a channel open. Walk about 2–3 km on land around the ferry landing."
+        },
+        {
+          "type": "maybe",
+          "name": "Trångsviken bay mouth",
+          "at": [
+            63.295,
+            14.08
+          ],
+          "r": 1500,
+          "text": "Early in the season the ice often ends here."
+        },
+        {
+          "type": "open",
+          "name": "Håkansta ferry lane",
+          "at": [
+            63.1366,
+            14.3229
+          ],
+          "r": 1300,
+          "text": "Ferry channel. Stay off it."
+        },
+        {
+          "type": "open",
+          "name": "Isöleden ferry lane",
+          "at": [
+            63.1377,
+            14.393
+          ],
+          "r": 900,
+          "text": "The all-year Isön–Norderön ferry."
+        },
+        {
+          "type": "open",
+          "name": "Lead west of Hara jetty",
+          "at": [
+            63.039,
+            14.457
+          ],
+          "r": 300,
+          "text": "A recurring open lead."
+        },
+        {
+          "type": "maybe",
+          "name": "Sannsundsbron",
+          "at": [
+            62.9776,
+            14.4688
+          ],
+          "r": 300,
+          "text": "Bridge over a 1.1 km strait. Pass mid-span (unverified)."
+        },
+        {
+          "type": "open",
+          "name": "Svenstaån inlet",
+          "at": [
+            62.768,
+            14.4297
+          ],
+          "r": 500,
+          "text": "River inflow at Svenstavik. Get off at least 500 m north of the bridge."
+        }
+      ]
     }
   ],
   "stations": {
@@ -1489,6 +2469,13 @@
       "id": "133190",
       "param": 1,
       "why": "420 m, by Liten and nearest to south Kallsjön. Mörsil only reports 2–3 readings a day, so its daily mean is rougher"
+    },
+    "froson": {
+      "name": "Östersund-Frösön",
+      "elev": 376,
+      "id": "134110",
+      "param": 2,
+      "why": "376 m, on Storsjön by Östersund, nearest to Näldsjön and Flaket"
     }
   }
 }

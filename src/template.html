@@ -355,7 +355,7 @@ function redrawChart(){
 addEventListener('resize', () => redrawChart());
 
 /* ---------- routes ---------- */
-const KIND = { train:'Train ⇄ train', 'train-bus':'Train out · bus home', bus:'Bus ⇄ bus', cars:'Two cars', loop:'Loop' };
+const KIND = { train:'Train ⇄ train', 'train-bus':'Train out · bus home', 'bus-train':'Bus out · train home', bus:'Bus ⇄ bus', cars:'Two cars', loop:'Loop', tor:'Out and back' };
 const STATUS = { skated:'You skated it', reported:'Others skated it', proposed:'Proposed', untested:'No reports yet', expedition:'Expedition' };
 const ICON = { train:'🚆', bus:'🚌', car:'🚗', walk:'🥾' };
 const PACE = [
@@ -363,7 +363,7 @@ const PACE = [
   { k:'thin', label:'Thin snow on ice, about 8 km/h', v:8, why:'Your Enafors–Duved day, 3 Dec 2022' },
   { k:'rough', label:'Snowy or rough, about 5 km/h', v:5, why:'Expect a lot of walking' }
 ];
-const FILTERS = [['all','All'],['pt','Public transport'],['cars','Two cars'],['loop','Loops'],['skated','Skated by someone']];
+const FILTERS = [['all','All'],['pt','Public transport'],['cars','Two cars'],['loop','Loops'],['tor','Out and back'],['skated','Skated by someone']];
 let filter = store.get('filter', 'all');
 let openId = store.get('open', null);
 const plan = store.get('plan', {});
@@ -375,7 +375,7 @@ function routeKm(id){
 }
 function passes(r){
   if (filter === 'all') return true;
-  if (filter === 'pt') return ['train','train-bus','bus'].includes(r.kind);
+  if (filter === 'pt') return ['train','train-bus','bus-train','bus'].includes(r.kind);
   if (filter === 'skated') return r.status === 'skated' || r.status === 'reported';
   return r.kind === filter;
 }
