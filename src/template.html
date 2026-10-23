@@ -220,7 +220,7 @@ footer{color:var(--text-3);font-size:12px;margin-top:24px}
       <span><i style="background:repeating-linear-gradient(90deg,var(--text) 0 3px,transparent 3px 7px)"></i>On foot</span>
       <span><i style="width:12px;height:12px;border-radius:50%;background:rgba(217,58,43,.3);border:2px solid #d93a2b;margin:0 5px"></i>Open water</span>
     </div>
-    <div class="maptoggle"><button id="mTopo" class="on" type="button">Topo</button><button id="mOsm" type="button">Map</button></div>
+    <div class="maptoggle"><button id="mTopo" type="button">Topo</button><button id="mOsm" class="on" type="button">Map</button></div>
   </div>
 </div>
 </div>
@@ -490,7 +490,7 @@ const desk = matchMedia('(min-width:980px)');
 const fitPad = () => desk.matches ? { paddingTopLeft: [452 + 24, 40], paddingBottomRight: [40, 40] } : { padding: [24, 24] };
 const topo = L.tileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', { maxZoom: 16, attribution: '© OpenStreetMap, © OpenTopoMap (CC-BY-SA)' });
 const osm = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom: 18, attribution: '© OpenStreetMap contributors' });
-topo.addTo(map);
+osm.addTo(map);
 document.getElementById('mTopo').onclick = () => { map.removeLayer(osm); topo.addTo(map); mTopo.classList.add('on'); mOsm.classList.remove('on'); };
 document.getElementById('mOsm').onclick = () => { map.removeLayer(topo); osm.addTo(map); mOsm.classList.add('on'); mTopo.classList.remove('on'); };
 function chaikin(pts, it = 2){
